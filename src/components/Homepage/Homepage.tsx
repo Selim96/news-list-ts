@@ -1,9 +1,13 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
+import Container from "../Container";
+import s from './Homepage.module.scss';
 
 const  Homepage: React.FC = () => {
     return (
-        <div>
+        <Container>
+            <div className={s}
 
-        </div>
+            </div>
+        </Container>
     )
 }
