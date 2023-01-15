@@ -17,3 +17,11 @@ export interface IArticle {
         provider: string;
     } | null)[];
 };
+
+export interface IState {
+    allNews: IArticle[];
+    filteredNews: string;
+    newsDetails: IArticle;
+    error: any;
+    loading: boolean;
+};
