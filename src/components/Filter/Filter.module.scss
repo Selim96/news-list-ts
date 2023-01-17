@@ -1,5 +1,19 @@
-.mainBox {
+@import "../../stylesheet/mixin";
 
+.mainBox {
+    
+
+    @include mq(mobile) {
+        
+    }
+
+    @include mq(tablet) {
+        width: 500px;
+    }
+
+    @include mq(desktop) {
+        width: 600px;
+    }
 }
 
 .text {
@@ -10,3 +24,4 @@
     color: #363636;
     margin-bottom: 10px;
 }
+

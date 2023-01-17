@@ -1,0 +1,1 @@
+export {default} from './ItermFrame.tsx';

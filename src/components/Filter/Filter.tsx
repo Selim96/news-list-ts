@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import TextField from '@mui/material/TextField';
+import InputAdornment from '@mui/material/InputAdornment';
+import SearchIcon from '@mui/icons-material/Search';
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import {filterNews} from '../../redux/slice';
 import allSelectors from '../../redux/selectors';
@@ -20,9 +22,18 @@ const Filter: React.FC = () => {
             <p className={s.text}>Filter by keywords</p>
             <TextField
                 id="outlined-basic"
-                label="Outlined"
+                label=""
+                InputProps={{
+                    startAdornment: (
+                        <InputAdornment position="start">
+                        <SearchIcon />
+                        </InputAdornment>
+                    ),
+                }}
                 variant="outlined"
                 size="small"
+                classes={{root: 'input'}}
+                fullWidth={true}
                 defaultValue={filterValue}
                 onChange={onHandlInput}
             />
