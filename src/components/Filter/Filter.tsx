@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import TextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
 import SearchIcon from '@mui/icons-material/Search';
@@ -14,9 +14,7 @@ const Filter: React.FC = () => {
     const onHandlInput = (e: any) => {
         dispatch(filterNews( e.currentTarget.value))
     }
-    useEffect(() => {
-        
-    }, [])
+    
     return (
         <div className={s.mainBox}>
             <p className={s.text}>Filter by keywords</p>

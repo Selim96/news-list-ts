@@ -1,7 +1,8 @@
 @import "../../stylesheet/mixin";
 
 .mainBox {
-    
+    width: 100%;
+    margin-bottom: 40px;
 
     @include mq(mobile) {
         

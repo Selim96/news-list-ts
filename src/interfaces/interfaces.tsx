@@ -9,11 +9,11 @@ export interface IArticle {
     updatedAt: string;
     featured: boolean;
     launches: ({
-        id: number;
+        id: string;
         provider: string;
     } | null)[];
     events: ({
-        id: number;
+        id: number | string;
         provider: string;
     } | null)[];
 };
