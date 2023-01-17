@@ -9,10 +9,13 @@ const Homepage: React.FC = () => {
         
     }, [])
     return (
-        <div className={s.mainBox}>
-            <Filter />
-            This is Homepage
-        </div>
+        <Container>
+            <div className={s.mainBox}>
+                <Filter />
+                This is Homepage
+            </div>
+        </Container>
+        
     );
 }
 

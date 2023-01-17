@@ -1,13 +1,14 @@
 import React, {lazy, Suspense} from 'react';
 import { Route, Routes } from "react-router-dom";
 import Loader from './Loader';
+import Homepage from './Homepage';
 
-function App() {
+const App: React.FC =() => {
   return (
     <>
       <Suspense fallback={<Loader />}>
         <Routes>
-          <Route path="/"  />
+          <Route path="/" element={ <Homepage/>} />
           <Route path='/:id' />
         </Routes>
       </Suspense>

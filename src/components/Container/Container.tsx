@@ -1,12 +1,12 @@
-import React, { DOMElement, ReactComponentElement } from "react";
+import React from "react";
 import s from "./Container.module.scss";
 
-// interface IProps {
-//   children: HTMLAttributes<HTMLDivElement> | HTMLDivElement
-// }
+interface IProps {
+  children?: React.ReactNode
+}
 
-const Container: React.FC = () => {
-  return <div className={s.container}></div>;
+const Container: React.FC< IProps> = ({children}) => {
+  return <div className={s.container}>{children}</div>;
 };
 
 export default Container;
