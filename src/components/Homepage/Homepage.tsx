@@ -28,11 +28,11 @@ const Item = styled(Paper)(({ theme }) => ({
 const theme = createTheme({
     breakpoints: {
     values: {
-      xs: 0,
-      sm: 480,
-      md: 860,
-      lg: 1440,
-      xl: 1536,
+        xs: 0,
+        sm: 480,
+        md: 860,
+        lg: 1440,
+        xl: 1536,
     },
   }
 });
@@ -84,7 +84,7 @@ const Homepage: React.FC = () => {
                 <p className={s.results}>Results: {getFilteredNews().length }</p>
 
                 <ThemeProvider theme={theme}>
-                    <Grid container spacing={[2, 2, 2, 6]} >
+                    <Grid container rowSpacing={5} columnSpacing={[0, 0, 2, 6]} >
                         {getFilteredNews().map((item: IArticle) => (
                             <Grid item xs={12} md={6} lg={4} key={item.id}>
                                 <Item>
