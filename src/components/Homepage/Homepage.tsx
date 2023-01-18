@@ -32,16 +32,19 @@ const Homepage: React.FC = () => {
     const getFilteredNews = () => {
         const newArray: IArticle[] = [];
         let indexToAdd = 0;
-        const value = filterValue.trim().toLowerCase();
+        const value: string[] = filterValue.trim().toLowerCase().split(" ");
 
-        if (value !== '') {
+        if (value.join(" ") !== "") {
             allNews.forEach((item: IArticle) => {
-                if (item.title.toLowerCase().includes(value)) {
+                const isInTitle = item.title.toLowerCase().split(" ").some((item) => value.some((elem: string) => elem === item));
+                if (isInTitle) {
                     newArray.splice(indexToAdd, 0, item);
                     indexToAdd += 1;
                     return;
                 }
-                if (item.summary.toLowerCase().includes(value)) {
+
+                const isInSummary = item.summary.toLowerCase().split(" ").some((item) => value.some((elem: string) => elem === item));
+                if (isInSummary) {
                     newArray.push(item);
                     return;
                 }
