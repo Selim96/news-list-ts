@@ -1,9 +1,11 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import IArticle from "../../interfaces";
 import { useAppSelector } from "../../redux/hooks";
 import allSelectors from '../../redux/selectors';
 import s from './ItemFrame.module.scss';
+import DateRangeOutlinedIcon from '@mui/icons-material/DateRangeOutlined';
+import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined';
 
 
 const ItemFrame: React.FC<IArticle> = ({ item }) => {
@@ -22,26 +24,25 @@ const ItemFrame: React.FC<IArticle> = ({ item }) => {
         }
     };
 
-
-    useEffect(() => {
-
-    }, []);
-
     
     const slicedSummary = summary.slice(0, 100) + '...';
 
     return (
         <div className={s.frame}>
-            <img src={imageUrl} width='100%' height={217} alt='news' />
+            <div className={s.imageThumb}>
+                <img src={imageUrl} width='100%' height={217} alt='news' className={s.image} />
+            </div>
             <div className={s.frameContent}>
-                <p>{publishedAt || updatedAt ? publishedAt || updatedAt : 'N/A'}</p>
-                <h2>{title}</h2>
-                <p>{slicedSummary}</p>
-                <Link to={`${id}`} >Read more</Link>
+                <p><DateRangeOutlinedIcon fontSize="small" /> {publishedAt || updatedAt ? publishedAt || updatedAt : 'N/A'}</p>
+                {/* <div className={s.animationBox}>
+                </div> */}
+                <h2 className={s.title}>{title}</h2>
+                <p className={s.text}>{slicedSummary}</p>
+                <Link to={`${id}`} className={s.linkToMore} >Read more <ArrowForwardOutlinedIcon fontSize="small"/></Link>
             </div>
         </div>
     )
 };
 
-export default ItemFrame
+export default ItemFrame;
 

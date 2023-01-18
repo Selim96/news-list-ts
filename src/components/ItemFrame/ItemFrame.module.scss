@@ -1,3 +1,106 @@
+@import "../../stylesheet/mixin";
+
 .yellow {
     background-color: yellow;
 }
+
+.frame {
+    box-sizing: border-box;
+    padding-bottom: 25px;
+    @include mq(desktop){
+        width: 400px;
+        height: 530px;
+    }
+}
+
+.imageThumb {
+    width: 100%;
+    max-height: 217px;
+    margin-bottom: 25px;
+
+    @include mq(desktop){
+        // width: 400px;
+    }
+}
+
+.image {
+    font-size: 0;
+    object-fit: cover;
+}
+
+.frameContent {
+    color: #363636;
+    text-align: start;
+    font-family: 'Montserrat';
+    padding-right: 25px;
+    padding-left: 25px;
+    display: flex;
+    flex-direction: column;
+    height: 263px;
+
+    & > p {
+        display: flex;
+        align-items: center;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 1.5;
+        opacity: 0.6;
+        margin-bottom: 24px;
+    }
+    & > p > svg {
+        width: 16px;
+        height: 16px;
+        color: #363636;
+        opacity: 0.6;
+        margin-right: 8px;
+        position: relative;
+        top: -1px;
+    }
+    // &>.animationBox{
+    //     height: 98px;
+    //     overflow: hidden;
+    // }
+    & .title {
+        flex-grow: 1;
+        font-weight: 400;
+        font-size: 24px;
+        line-height: 1.21;
+        margin-bottom: 20px;
+        // height: 98px;
+        width: 350px;
+        overflow: hidden;
+    }
+    &>.text {
+        // flex-grow: 1;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 1.5;
+        // height: 96px;
+    }
+    & > .linkToMore{
+        
+        color: #363636;
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 150%;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        &>svg{
+            margin-left: 6px;
+            width: 15px;
+            height: 13px;
+        }
+    }
+}
+
+
+// @keyframes animateTransform {
+//     0% {
+//         transform: translateY(0);
+//     }
+
+//     100% {
+//         transform: translateX(calc(100vw - 110px));
+//     }
+// }
