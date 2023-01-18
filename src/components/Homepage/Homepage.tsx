@@ -25,11 +25,9 @@ const Homepage: React.FC = () => {
     const dispatch = useAppDispatch();
     const allNews = useAppSelector(allSelectors.getAllNews);
     const isLoading = useAppSelector(allSelectors.getLoading);
-    console.log(isLoading)
-    console.log(allNews)
 
     useEffect(() => {
-        dispatch(newsAPI.getResult())
+        dispatch(newsAPI.AllNewsResult())
     }, [dispatch]);
 
     return isLoading || (allNews.length === 0) ? (<Loader/>) : (

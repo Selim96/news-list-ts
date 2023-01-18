@@ -1,7 +1,8 @@
 import React, {lazy, Suspense} from 'react';
 import { Route, Routes } from "react-router-dom";
 import Loader from './Loader';
-import Homepage from './Homepage';
+const Homepage = lazy(() => import("./Homepage/Homepage"));
+const Detailspage = lazy(() => import("./Detailspage/Detailspage"));
 
 const App: React.FC =() => {
   return (
@@ -9,7 +10,7 @@ const App: React.FC =() => {
       <Suspense fallback={<Loader />}>
         <Routes>
           <Route path="/" element={ <Homepage/>} />
-          <Route path='/:id' />
+          <Route path='/:id' element={<Detailspage/>} />
         </Routes>
       </Suspense>
     </>

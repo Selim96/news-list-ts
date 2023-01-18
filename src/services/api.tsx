@@ -2,12 +2,14 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import IArticle from '../interfaces';
 
 export class NewsAPI {
-    static baseURL = 'https://api.spaceflightnewsapi.net/v3/articles';
+    private baseURL = 'https://api.spaceflightnewsapi.net/v3/articles';
+
+    private articleId: string | undefined = '';
 
     private allNews = createAsyncThunk<IArticle[], undefined, {rejectValue: any}>(
         "news",
         async (_, { rejectWithValue }) => {
-            const response = await fetch(`${NewsAPI.baseURL}`);
+            const response = await fetch(`${this.baseURL}`);
 
             if (!response.ok) {
                 return rejectWithValue('Server Error!');
@@ -16,37 +18,51 @@ export class NewsAPI {
             return news;
         }
     ); 
-    
-    // constructor() {
-    //     this.allNews = createAsyncThunk<IArticle[], string>(
-    //     "news",
-    //     async (_, { rejectWithValue }) => {
-    //         const response = await fetch(`${NewsAPI.baseURL}`);
 
-    //         if (!response.ok) {
-    //             return rejectWithValue('Server Error!');
-    //         }
-    //         const news =await response.json();
-    //         return news;
-    //     }
-    // );
-    // }
+    private detailsNews = createAsyncThunk<IArticle[], undefined, {rejectValue: any}>(
+        "news",
+        async (_, { rejectWithValue }) => {
+            const response = await fetch(`${this.baseURL}/${this.articleId}`);
 
-    public getAllNews() {
+            if (!response.ok) {
+                return rejectWithValue('Server Error!');
+            }
+            const news =await response.json();
+            return news;
+        }
+    );
+
+
+    public AllNews() {
         return this.allNews;
-    }
-
-    public getResult() {
+    };
+    public AllNewsResult() {
         return this.allNews();
+    };
+
+    public DetailsNews() {
+        return this.detailsNews;
+    };
+    public DetailsNewsResult() {
+        return this.detailsNews();
     }
 
-    static getBaseURL() {
-        return NewsAPI.baseURL;
+    public getArticleId() {
+        return this.articleId;
     }
+    public setArticleId(id: string | undefined) {
+        this.articleId = id;
+    };
 
-    static setBaseURL(url: string) {
-        NewsAPI.baseURL = url;
-    }
+    public getBaseURL() {
+        return this.baseURL;
+    };
+
+    public setBaseURL(url: string) {
+        this.baseURL = url;
+    };
+
+
 }
 
 // const apiObj = new NewsAPI();

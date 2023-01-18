@@ -12,9 +12,10 @@ const initialState: Interfaces.IState = {
 }
 
 const newsAPI = new NewsAPI();
+const allNews = newsAPI.AllNews();
 
 const newsSlice = createSlice({
-    name: "jobs",
+    name: "news",
     initialState,
     reducers: {
         addDetails: (state, action: PayloadAction<string>) => {
@@ -25,16 +26,31 @@ const newsSlice = createSlice({
             state.filteredNews = action.payload; 
         }
     },
-    extraReducers: builder => {
-        builder.addCase(newsAPI.getAllNews().pending, (state) => {
+    extraReducers:(builder) => {
+        builder.addCase(allNews.pending, (state) => {
             state.loading = true;
             state.error = null;
         });
-        builder.addCase(newsAPI.getAllNews().fulfilled, (state, { payload }) => {
+        builder.addCase(allNews.fulfilled, (state, { payload }) => {
             state.loading = false;
             state.allNews = payload;
         });
-        builder.addCase(newsAPI.getAllNews().rejected, (state, { payload }) => {
+        builder.addCase(allNews.rejected, (state, { payload }) => {
+            state.loading = false;
+            state.error = payload;
+            if (payload) {
+                toast.error("Fatal error");
+            }
+        });
+        builder.addCase(newsAPI.DetailsNews().pending, (state) => {
+            state.loading = true;
+            state.error = null;
+        });
+        builder.addCase(newsAPI.DetailsNews().fulfilled, (state, { payload }) => {
+            state.loading = false;
+            state.newsDetails = payload;
+        });
+        builder.addCase(newsAPI.DetailsNews().rejected, (state, { payload }) => {
             state.loading = false;
             state.error = payload;
             if (payload) {

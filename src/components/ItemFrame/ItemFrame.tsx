@@ -1,4 +1,5 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
 import IArticle from "../../interfaces";
 import { useAppSelector } from "../../redux/hooks";
 import allSelectors from '../../redux/selectors';
@@ -36,7 +37,7 @@ const ItemFrame: React.FC<IArticle> = ({ item }) => {
                 <p>{publishedAt || updatedAt ? publishedAt || updatedAt : 'N/A'}</p>
                 <h2>{title}</h2>
                 <p>{slicedSummary}</p>
-                <button type="button">Read more</button>
+                <Link to={`${id}`} >Read more</Link>
             </div>
         </div>
     )
