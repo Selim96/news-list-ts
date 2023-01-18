@@ -1,0 +1,73 @@
+@import "../../stylesheet/mixin";
+
+.main {
+    position: relative;
+    box-sizing: border-box;
+
+    padding-top: 150px;
+    padding-bottom: 45px;
+}
+
+.back {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    width: 100%;
+    height: 245px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+}
+
+.articleThumb {
+    background-color: white;
+    padding: 35px 20px 25px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid #EAEAEA;
+    box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.05);
+    border-radius: 5px;
+    margin-bottom: 35px;
+
+    @include mq(tablet) {
+        padding: 35px 75px 50px 75px;
+    }
+}
+
+.articleTitle {
+    margin-bottom: 50px;
+    font-family: 'Montserrat';
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 1.21;
+    color: #363636;
+    text-align: center;
+}
+
+.article {
+    font-family: 'Montserrat';
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 1.5;
+    color: #000000;
+}
+
+.button {
+    display: flex;
+    align-items: center;
+    font-family: 'Montserrat';
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #363636;
+    border: none;
+    cursor: pointer;
+    background-color: inherit;
+@include mq(tablet) {
+        position: relative;
+        left: 75px;
+    }
+    
+}

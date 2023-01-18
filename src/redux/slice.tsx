@@ -13,15 +13,12 @@ const initialState: Interfaces.IState = {
 
 const newsAPI = new NewsAPI();
 const allNews = newsAPI.AllNews();
+const detailsNews = newsAPI.DetailsNews();
 
 const newsSlice = createSlice({
     name: "news",
     initialState,
     reducers: {
-        addDetails: (state, action: PayloadAction<string>) => {
-            const index: number = state.allNews.findIndex((elem: Interfaces.IArticle) => elem.id === action.payload);
-            state.newsDetails = state.allNews[index]
-        },
         filterNews: (state, action: PayloadAction<string>) => {
             state.filteredNews = action.payload; 
         }
@@ -42,15 +39,15 @@ const newsSlice = createSlice({
                 toast.error("Fatal error");
             }
         });
-        builder.addCase(newsAPI.DetailsNews().pending, (state) => {
+        builder.addCase(detailsNews.pending, (state) => {
             state.loading = true;
             state.error = null;
         });
-        builder.addCase(newsAPI.DetailsNews().fulfilled, (state, { payload }) => {
+        builder.addCase(detailsNews.fulfilled, (state, { payload }) => {
             state.loading = false;
             state.newsDetails = payload;
         });
-        builder.addCase(newsAPI.DetailsNews().rejected, (state, { payload }) => {
+        builder.addCase(detailsNews.rejected, (state, { payload }) => {
             state.loading = false;
             state.error = payload;
             if (payload) {
@@ -62,5 +59,5 @@ const newsSlice = createSlice({
 
 const reducer = newsSlice.reducer;
 
-export const { addDetails, filterNews } = newsSlice.actions;
+export const { filterNews } = newsSlice.actions;
 export default reducer;

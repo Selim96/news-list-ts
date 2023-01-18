@@ -2,7 +2,7 @@ export interface IArticle {
     id: number;
     title: string;
     url: string;
-    imageUrl: string;
+    imageUrl: string | null;
     newsSite: string;
     summary: string;
     publishedAt: string;

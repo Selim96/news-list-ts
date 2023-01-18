@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useAppSelector, useAppDispatch } from "../../redux/hooks";
 import allSelectors from '../../redux/selectors';
 import { NewsAPI } from "../../services/api";
@@ -20,11 +20,37 @@ const Item = styled(Paper)(({ theme }) => ({
     color: theme.palette.text.secondary,
 }));
 
+const newsAPI = new NewsAPI();
+
 const Homepage: React.FC = () => {
-    const newsAPI = new NewsAPI();
+    
     const dispatch = useAppDispatch();
     const allNews = useAppSelector(allSelectors.getAllNews);
+    const filterValue = useAppSelector(allSelectors.getFilter);
     const isLoading = useAppSelector(allSelectors.getLoading);
+
+    const getFilteredNews = () => {
+        const newArray: IArticle[] = [];
+        let indexToAdd = 0;
+        const value = filterValue.trim().toLowerCase();
+
+        if (value !== '') {
+            allNews.forEach((item: IArticle) => {
+                if (item.title.toLowerCase().includes(value)) {
+                    newArray.splice(indexToAdd, 0, item);
+                    indexToAdd += 1;
+                    return;
+                }
+                if (item.summary.toLowerCase().includes(value)) {
+                    newArray.push(item);
+                    return;
+                }
+            });
+            return newArray;
+        } else {
+            return allNews;
+        }
+    };
 
     useEffect(() => {
         dispatch(newsAPI.AllNewsResult())
@@ -34,9 +60,11 @@ const Homepage: React.FC = () => {
         <Container>
             <div className={s.mainBox}>
                 <Filter />
-                <p className={s.results}>Results:</p>
+
+                <p className={s.results}>Results: {getFilteredNews().length }</p>
+
                 <Grid container spacing={2}>
-                    {allNews.map((item: IArticle) => (
+                    {getFilteredNews().map((item: IArticle) => (
                         <Grid item xs={4} key={item.id}>
                             <Item>
                                 <ItemFrame item={item} />

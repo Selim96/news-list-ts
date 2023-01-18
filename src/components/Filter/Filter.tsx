@@ -11,8 +11,9 @@ const Filter: React.FC = () => {
     const dispatch = useAppDispatch();
     const filterValue = useAppSelector(allSelectors.getFilter);
 
+    
     const onHandlInput = (e: any) => {
-        dispatch(filterNews( e.currentTarget.value))
+        dispatch(filterNews(e.currentTarget.value))
     }
     
     return (
