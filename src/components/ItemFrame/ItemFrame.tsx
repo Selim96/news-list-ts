@@ -7,47 +7,29 @@ import s from './ItemFrame.module.scss';
 import DateRangeOutlinedIcon from '@mui/icons-material/DateRangeOutlined';
 import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined';
 
-
-
-
-
-
-
 const ItemFrame: React.FC<IArticle> = ({ item }) => {
-    const { title, url, id, imageUrl, newsSite, summary, publishedAt, updatedAt } = item;
-
-    const filterValue = useAppSelector(allSelectors.getFilter);
-    const trimedValue = filterValue.trim().toLowerCase();
-    
-    const toMarkText = (text: string) => {
-        const wordsArray: string[] = text.split(" ");
-        const filterArray = trimedValue.split(" ");
-        if (trimedValue !== "") {
-            
-            
-            if (title.includes(trimedValue)) {
-                const startMatch = title.indexOf(trimedValue)
-            }
-        }
-        return text;
-    };
-
-    function getHighlightedText(text: string, highlight: string) {
-    // Split on highlight term and include term into parts, ignore case
-    const parts = text.split(new RegExp(`(${highlight})`, 'gi'));
-    return <span> { parts.map((part, i) => 
-        <span key={i} style={part.toLowerCase() === highlight.toLowerCase() ? { fontWeight: 'bold' } : {} }>
-            { part }
-        </span>)
-    } </span>;
-}
-
-    
+    const { title, id, imageUrl, summary, publishedAt, updatedAt } = item;
     const slicedSummary = summary.slice(0, 100) + '...';
 
-    // const reg = new RegExp();
+    const filterValue: string = useAppSelector(allSelectors.getFilter);
+    const trimValue = filterValue.trim().toLowerCase();
+    
+    const getMarkedText = (text: string) => {
+        const wordsArray = text.split(" ");
+        const filterArray = trimValue.split(" ");
+        
+        const result = wordsArray.map((word, index) => {
+            const isInFilter = filterArray.some((item: string) => word.toLowerCase() === item);
+            if (isInFilter) {
+                return <span key={index} className={s.yellow}>{word} </span>
+            }
+            return <span key={index} >{word} </span>
+        });
 
-    const someText = <span className={s.yellow}>{ trimedValue}</span>
+        return <span>{result}</span> ;
+    };
+    
+    
 
     return (
         <div className={s.frame}>
@@ -58,13 +40,21 @@ const ItemFrame: React.FC<IArticle> = ({ item }) => {
                 <p><DateRangeOutlinedIcon fontSize="small" /> {publishedAt || updatedAt ? publishedAt || updatedAt : 'N/A'}</p>
                 {/* <div className={s.animationBox}>
                 </div> */}
-                <h2 className={s.title}>{getHighlightedText(title, trimedValue)}</h2>
-                <p className={s.text}>{slicedSummary}</p>
-                <Link to={`${id}`} className={s.linkToMore} >Read more <ArrowForwardOutlinedIcon fontSize="small"/></Link>
+                <h2 className={s.title}>{getMarkedText(title)}</h2>
+                <p className={s.text}>{getMarkedText(slicedSummary)}</p>
+                <Link to={`${id}`} className={s.linkToMore} >Read more <ArrowForwardOutlinedIcon fontSize="small" /></Link>
             </div>
         </div>
-    )
+    );
 };
 
 export default ItemFrame;
 
+// function getHighlightedWord(text: string, highlight: string) {
+    //     const partsText = text.split(new RegExp(`(${highlight})`, 'gi'));
+    // return <span> { partsText.map((part, i) => 
+    //         <span key={i} style={part.toLowerCase() === highlight.toLowerCase() ? { backgroundColor: 'yellow' } : {} }>
+    //             { part }
+    //         </span>)
+    //     } </span>;
+    // };

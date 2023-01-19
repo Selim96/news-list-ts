@@ -11,6 +11,10 @@
         width: 400px;
         height: 530px;
     }
+    &:hover .linkToMore::after{
+        transform: translateX(0%);
+        transition:transform 500ms linear;
+    }
 }
 
 .imageThumb {
@@ -32,11 +36,14 @@
     color: #363636;
     text-align: start;
     font-family: 'Montserrat';
-    padding-right: 25px;
-    padding-left: 25px;
+    // padding-right: 25px;
+    // padding-left: 25px;
     display: flex;
     flex-direction: column;
     height: 263px;
+    overflow: hidden;
+    width: 350px;
+    margin: 0 auto;
 
     & > p {
         display: flex;
@@ -78,7 +85,10 @@
         // height: 96px;
     }
     & > .linkToMore{
-        
+        width: 114px;
+        position: relative;
+        // overflow: hidden;
+        margin-bottom: 2px;
         color: #363636;
         font-weight: 700;
         font-size: 16px;
@@ -90,6 +100,16 @@
             margin-left: 6px;
             width: 15px;
             height: 13px;
+        }
+        &::after {
+            content: "";
+            z-index: 10;
+            width: 100%;
+            height: 1px;
+            background-color: black;
+            position: absolute;
+            bottom: -2px;
+            transform: translateX(-100%);
         }
     }
 }
