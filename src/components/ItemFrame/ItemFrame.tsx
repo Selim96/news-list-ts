@@ -32,19 +32,22 @@ const ItemFrame: React.FC<IArticle> = ({ item }) => {
     
 
     return (
-        <div className={s.frame}>
-            <div className={s.imageThumb}>
-                <img src={imageUrl} width='100%' height={217} alt='news' className={s.image} />
+        <Link to={`${id}`} >
+            <div className={s.frame}>
+                <div className={s.imageThumb}>
+                    <img src={imageUrl} width='100%' height={217} alt='news' className={s.image} />
+                </div>
+                <div className={s.frameContent}>
+                    <p className={s.dateText}><DateRangeOutlinedIcon fontSize="small" /> {publishedAt || updatedAt ? publishedAt || updatedAt : 'N/A'}</p>
+                    {/* <div className={s.animationBox}>
+                    </div> */}
+                    <h2 className={s.title}>{getMarkedText(title)}</h2>
+                    <p className={s.text}>{getMarkedText(slicedSummary)}</p>
+                    <p className={s.linkToMore} >Read more <ArrowForwardOutlinedIcon fontSize="small" /></p>
+                </div>
             </div>
-            <div className={s.frameContent}>
-                <p><DateRangeOutlinedIcon fontSize="small" /> {publishedAt || updatedAt ? publishedAt || updatedAt : 'N/A'}</p>
-                {/* <div className={s.animationBox}>
-                </div> */}
-                <h2 className={s.title}>{getMarkedText(title)}</h2>
-                <p className={s.text}>{getMarkedText(slicedSummary)}</p>
-                <Link to={`${id}`} className={s.linkToMore} >Read more <ArrowForwardOutlinedIcon fontSize="small" /></Link>
-            </div>
-        </div>
+        </Link>
+        
     );
 };
 
