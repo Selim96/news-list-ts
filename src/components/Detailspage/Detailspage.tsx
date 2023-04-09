@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useAppSelector, useAppDispatch } from "../../redux/hooks";
+import { cleanDetails } from "../../redux/slice";
 import allSelectors from '../../redux/selectors';
 import { NewsAPI } from "../../services/api";
 import Container from "../Container";
@@ -19,8 +20,10 @@ const Detailspage: React.FC = () => {
 
     const { id } = useParams();
     const navigate = useNavigate();
+
     const handleClick = () => {
         navigate('/');
+        dispatch(cleanDetails());
     };
 
 
@@ -30,11 +33,11 @@ const Detailspage: React.FC = () => {
     }, [dispatch, id]);
 
     if (newsDetail !== null) {
-        const { title, summary , imageUrl } = newsDetail;
+        const { title, summary , image_url } = newsDetail;
     
         return (
             <div className={s.main} >
-                <div className={s.back} style={{ backgroundImage: `url(${imageUrl})` }}></div>
+                <div className={s.back} style={{ backgroundImage: `url(${image_url})` }}></div>
                 <Container>
                     <div className={s.articleThumb}>
                         <h2 className={s.articleTitle}>{title}</h2>

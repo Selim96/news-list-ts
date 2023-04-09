@@ -5,6 +5,7 @@ import { NewsAPI } from "../services/api";
 
 const initialState: Interfaces.IState = {
     allNews: [],
+    nextPage: null,
     filteredNews: '',
     newsDetails: null,
     error: null,
@@ -20,7 +21,10 @@ const newsSlice = createSlice({
     initialState,
     reducers: {
         filterNews: (state, action: PayloadAction<string>) => {
-            state.filteredNews = action.payload; 
+            state.filteredNews = action.payload;
+        },
+        cleanDetails: (state) => {
+            state.newsDetails = null;
         }
     },
     extraReducers:(builder) => {
@@ -30,7 +34,8 @@ const newsSlice = createSlice({
         });
         builder.addCase(allNews.fulfilled, (state, { payload }) => {
             state.loading = false;
-            state.allNews = payload;
+            state.allNews = payload.results;
+            state.nextPage = payload.next;
         });
         builder.addCase(allNews.rejected, (state, { payload }) => {
             state.loading = false;
@@ -59,5 +64,5 @@ const newsSlice = createSlice({
 
 const reducer = newsSlice.reducer;
 
-export const { filterNews } = newsSlice.actions;
+export const { filterNews, cleanDetails } = newsSlice.actions;
 export default reducer;

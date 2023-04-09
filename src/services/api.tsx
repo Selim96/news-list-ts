@@ -1,17 +1,26 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import IArticle from '../interfaces';
 
+interface IResults {
+    count: number;
+    next: string;
+    previous: string | null;
+    results: IArticle[];
+}
+
+// https://api.spaceflightnewsapi.net/v3/articles
+
 export class NewsAPI {
-    private baseURL = 'https://api.spaceflightnewsapi.net/v3/articles';
+    private baseURL = 'https://api.spaceflightnewsapi.net/v4/articles';
     private limit = 20;
 
     private articleId: string | undefined = '';
 
-    private allNews = createAsyncThunk<IArticle[], undefined, {rejectValue: any}>(
+    private allNews = createAsyncThunk<IResults, undefined, {rejectValue: any}>(
         "allNews",
         async (_, { rejectWithValue }) => {
             const response = await fetch(`${this.baseURL}?_limit=${this.limit}`);
-
+            // console.log(await response.json())
             if (!response.ok) {
                 return rejectWithValue('Server Error!');
             }

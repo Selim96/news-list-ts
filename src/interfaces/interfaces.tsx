@@ -2,11 +2,11 @@ export interface IArticle {
     id: number;
     title: string;
     url: string;
-    imageUrl: string | null;
-    newsSite: string;
+    image_url: string | null;
+    news_site: string;
     summary: string;
-    publishedAt: string;
-    updatedAt: string;
+    published_at: string;
+    updated_at: string;
     featured: boolean;
     launches: ({
         id: string;
@@ -20,6 +20,7 @@ export interface IArticle {
 
 export interface IState {
     allNews: IArticle[];
+    nextPage: string | null,
     filteredNews: string;
     newsDetails: IArticle;
     error: any;
