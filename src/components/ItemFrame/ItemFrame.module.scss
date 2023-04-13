@@ -78,6 +78,11 @@
         width: 350px;
         overflow: hidden;
     }
+    & .textList {
+        &>li {
+            display: inline;
+        }
+    }
     &>.text {
         // flex-grow: 1;
         font-weight: 400;

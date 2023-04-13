@@ -6,7 +6,7 @@ import allSelectors from '../../redux/selectors';
 import s from './ItemFrame.module.scss';
 import DateRangeOutlinedIcon from '@mui/icons-material/DateRangeOutlined';
 import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined';
-import { v4 as uuidv4 } from 'uuid';
+import { nanoid } from 'nanoid';
 import 'lazysizes';
 import 'lazysizes/plugins/parent-fit/ls.parent-fit';
 
@@ -20,23 +20,17 @@ const ItemFrame: React.FC<IArticle> = ({ item }) => {
     const getMarkedText = (text: string) => {
         const wordsArray = text.split(" ");
         const filterArray = trimValue.split(" ");
-
-        console.log(wordsArray)
+        const idForKey = nanoid();
         
         const result = wordsArray.map((word, index) => {
             const isInFilter = filterArray.some((item: string) => word.toLowerCase() === item);
             if (isInFilter) {
-                return <>
-                        <span key={uuidv4()} className={s.yellow}>{word}</span>
-                    </>
+                return <li key={`${idForKey}-${index}`} className={s.yellow}>{word}</li>;
             }
-            return <span key={uuidv4()} >{word} </span>
+            return <li key={`${idForKey}-${index}`}>{word} </li>;
         });
-
-        return <span>{result}</span> ;
+        return result;
     };
-    
-    
 
     return (
         <Link to={`${id}`} >
@@ -48,8 +42,8 @@ const ItemFrame: React.FC<IArticle> = ({ item }) => {
                     <p className={s.dateText}><DateRangeOutlinedIcon fontSize="small" /> {published_at || updated_at ? published_at || updated_at : 'N/A'}</p>
                     {/* <div className={s.animationBox}>
                     </div> */}
-                    <h2 className={s.title}>{trimValue ? getMarkedText(title) : title}</h2>
-                    <p className={s.text}>{trimValue ? getMarkedText(slicedSummary) : slicedSummary}</p>
+                    {trimValue ? <ul className={`${s.textList} ${s.title}`}>{getMarkedText(title)}</ul> : <h2 className={s.title}>{title}</h2>}
+                    {trimValue ? <ul className={`${s.textList} ${s.text}`}>{getMarkedText(slicedSummary)}</ul> : <p className={s.text}>{slicedSummary}</p>}
                     <p className={s.linkToMore} >Read more <ArrowForwardOutlinedIcon fontSize="small" /></p>
                 </div>
             </div>
