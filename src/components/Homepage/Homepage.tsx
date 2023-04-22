@@ -21,7 +21,7 @@ const Item = styled(Paper)(({ theme }) => ({
     overflow: 'hidden',
     borderRadius: 5,
     maxWidth: 400,
-    minHeight: 530,
+    height: 530,
 }));
 
 const theme = createTheme({

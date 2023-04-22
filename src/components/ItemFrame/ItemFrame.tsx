@@ -41,9 +41,9 @@ const ItemFrame: React.FC<IArticle> = ({ item }) => {
                 </div>
                 <div className={s.frameContent}>
                     <p className={s.dateText}><DateRangeOutlinedIcon fontSize="small" /> {published_at || updated_at ? published_at || updated_at : 'N/A'}</p>
-                    {/* <div className={s.animationBox}>
-                    </div> */}
-                    {trimValue ? <ul className={`${s.textList} ${s.title}`}>{getMarkedText(title)}</ul> : <h2 className={s.title}>{title}</h2>}
+                    <div className={s.animationBox}>
+                        {trimValue ? <ul className={`${s.textList} ${s.title}`}>{getMarkedText(title)}</ul> : <h2 className={s.title}>{title}</h2>}
+                    </div>
                     {trimValue ? <ul className={`${s.textList} ${s.text}`}>{getMarkedText(slicedSummary)}</ul> : <p className={s.text}>{slicedSummary}</p>}
                     <p className={s.linkToMore} >Read more <ArrowForwardOutlinedIcon fontSize="small" /></p>
                 </div>
