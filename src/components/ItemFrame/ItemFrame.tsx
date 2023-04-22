@@ -29,6 +29,7 @@ const ItemFrame: React.FC<IArticle> = ({ item }) => {
             }
             return <li key={`${idForKey}-${index}`}>{word} </li>;
         });
+        
         return result;
     };
 

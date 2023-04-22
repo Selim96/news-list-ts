@@ -41,10 +41,10 @@
     // padding-left: 25px;
     display: flex;
     flex-direction: column;
-    height: 263px;
+    min-height: 263px;
     overflow: hidden;
-    width: 350px;
-    margin: 0 auto;
+    max-width: 100%;
+    padding: 0 25px;
 
     & > .dateText {
         display: flex;
@@ -54,16 +54,17 @@
         line-height: 1.5;
         opacity: 0.6;
         margin-bottom: 24px;
+        & > svg {
+            width: 16px;
+            height: 16px;
+            color: #363636;
+            opacity: 0.6;
+            margin-right: 8px;
+            position: relative;
+            top: -1px;
+        }
     }
-    & > .dateText > svg {
-        width: 16px;
-        height: 16px;
-        color: #363636;
-        opacity: 0.6;
-        margin-right: 8px;
-        position: relative;
-        top: -1px;
-    }
+
     // &>.animationBox{
     //     height: 98px;
     //     overflow: hidden;
@@ -75,8 +76,12 @@
         line-height: 1.21;
         margin-bottom: 15px;
         // height: 98px;
-        width: 350px;
+        // width: 350px;
         overflow: hidden;
+        @include mq(mobile-only){
+        font-weight: 500;
+        font-size: 19px;
+    }
     }
     & .textList {
         &>li {
@@ -90,11 +95,14 @@
         line-height: 1.5;
         padding-bottom: 13px;
         // height: 96px;
+        @include mq(mobile-only){
+        font-size: 14px;
+    }
     }
     & > .linkToMore{
         width: 114px;
         position: relative;
-        // overflow: hidden;
+        overflow: hidden;
         margin-bottom: 2px;
         color: #363636;
         font-weight: 700;
@@ -110,12 +118,12 @@
         }
         &::after {
             content: "";
-            z-index: 10;
+            // z-index: 10;
             width: 100%;
             height: 1px;
             background-color: black;
             position: absolute;
-            bottom: -2px;
+            bottom: 0;
             transform: translateX(-100%);
         }
     }

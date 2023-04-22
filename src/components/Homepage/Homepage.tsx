@@ -8,9 +8,8 @@ import ItemFrame from "../ItemFrame";
 import Loader from "../Loader/Loader";
 import s from './Homepage.module.scss';
 import Grid from '@mui/material/Grid';
-import { styled } from '@mui/material/styles';
+import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { IArticle } from "../../interfaces/interfaces";
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -22,7 +21,7 @@ const Item = styled(Paper)(({ theme }) => ({
     overflow: 'hidden',
     borderRadius: 5,
     maxWidth: 400,
-    height: 530
+    minHeight: 530,
 }));
 
 const theme = createTheme({
