@@ -1,10 +1,11 @@
-import React from "react";
+import React, {useMemo, useEffect } from "react";
 import TextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
 import SearchIcon from '@mui/icons-material/Search';
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import {filterNews} from '../../redux/slice';
 import allSelectors from '../../redux/selectors';
+import debounce from 'lodash.debounce';
 import s from './Filter.module.scss';
 
 const Filter: React.FC = () => {
@@ -12,8 +13,16 @@ const Filter: React.FC = () => {
     const filterValue = useAppSelector(allSelectors.getFilter);
 
     const onHandlInput = (e: any) => {
-        dispatch(filterNews(e.currentTarget.value))
-    }
+        dispatch(filterNews(e.target.value))
+    };
+
+    const debouncedHandler = useMemo(()=> debounce(onHandlInput, 500), []);
+
+    useEffect(() => {
+        return () => {
+            debouncedHandler.cancel();
+        }
+    }, []);
     
     return (
         <div className={s.mainBox}>
@@ -33,7 +42,7 @@ const Filter: React.FC = () => {
                 classes={{root: 'input'}}
                 fullWidth={true}
                 defaultValue={filterValue}
-                onChange={onHandlInput}
+                onChange={debouncedHandler}
             />
         </div>
     );

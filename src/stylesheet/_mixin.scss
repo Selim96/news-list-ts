@@ -10,12 +10,13 @@
 }
 
 @mixin mq($range) {
+  $s-mobile: 400px;
   $mobile: 480px;
   $tablet: 860px;
   $desktop: 1440px;
 
-    @if $range == mobile-only {
-    @media (max-width: #{$mobile - 0.02}) {
+    @if $range == s-mobile {
+    @media (min-width: $s-mobile) {
       @content;
     }
   } @else if $range == mobile {

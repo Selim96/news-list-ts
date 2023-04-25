@@ -34,17 +34,20 @@
 }
 
 .frameContent {
+    height: auto;
     color: #363636;
     text-align: start;
     font-family: 'Montserrat';
     display: flex;
     flex-direction: column;
-    height: 263px;
     overflow: hidden;
     max-width: 100%;
     margin: 0 auto;
     padding: 0 25px;
 
+    @include mq(tablet) {
+        height: 263px;
+    }
     & > .dateText {
         display: flex;
         align-items: center;
@@ -70,16 +73,16 @@
     // }
     & .title {
         // flex-grow: 1;
-        font-weight: 400;
-        font-size: 24px;
+        font-weight: 500;
+        font-size: 20px;
         line-height: 1.21;
         // margin-bottom: 15px;
         // height: 98px;
         // width: 350px;
         // overflow: hidden;
-        @include mq(mobile-only){
-            font-weight: 500;
-            font-size: 19px;
+        @include mq(s-mobile){
+            font-weight: 400;
+            font-size: 24px;
         }
     }
 
@@ -91,12 +94,12 @@
     &>.text {
         // flex-grow: 1;
         font-weight: 400;
-        font-size: 16px;
+        font-size: 14px;
         line-height: 1.5;
         padding-bottom: 13px;
         // height: 96px;
-        @include mq(mobile-only){
-        font-size: 14px;
+        @include mq(s-mobile){
+        font-size: 16px;
     }
     }
     & > .linkToMore{

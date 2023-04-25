@@ -20,8 +20,10 @@ const Item = styled(Paper)(({ theme }) => ({
     color: theme.palette.text.secondary,
     overflow: 'hidden',
     borderRadius: 5,
+    marginLeft: 'auto',
+    marginRight: 'auto',
     maxWidth: 400,
-    height: 530,
+    // height: 530,
 }));
 
 const theme = createTheme({

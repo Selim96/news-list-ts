@@ -12,14 +12,15 @@ import 'lazysizes/plugins/parent-fit/ls.parent-fit';
 
 const ItemFrame: React.FC<IArticle> = ({ item }) => {
     const { title, id, image_url, summary, published_at, updated_at } = item;
+    const slicedTitle = title.length > 60 ? title.slice(0, 60) + '...' : title;
     const slicedSummary = summary.slice(0, 100) + '...';
 
     const filterValue: string = useAppSelector(allSelectors.getFilter);
-    const trimValue = filterValue.trim().toLowerCase();
+    const trimFilterValue = filterValue.trim().toLowerCase();
     
     const getMarkedText = (text: string) => {
         const wordsArray = text.split(" ");
-        const filterArray = trimValue.split(" ");
+        const filterArray = trimFilterValue.split(" ");
         const idForKey = nanoid();
         
         const result = wordsArray.map((word, index) => {
@@ -42,9 +43,9 @@ const ItemFrame: React.FC<IArticle> = ({ item }) => {
                 <div className={s.frameContent}>
                     <p className={s.dateText}><DateRangeOutlinedIcon fontSize="small" /> {published_at || updated_at ? published_at || updated_at : 'N/A'}</p>
                     <div className={s.animationBox}>
-                        {trimValue ? <ul className={`${s.textList} ${s.title}`}>{getMarkedText(title)}</ul> : <h2 className={s.title}>{title}</h2>}
+                        {trimFilterValue ? <ul className={`${s.textList} ${s.title}`}>{getMarkedText(title)}</ul> : <h2 className={s.title}>{slicedTitle}</h2>}
                     </div>
-                    {trimValue ? <ul className={`${s.textList} ${s.text}`}>{getMarkedText(slicedSummary)}</ul> : <p className={s.text}>{slicedSummary}</p>}
+                    {trimFilterValue ? <ul className={`${s.textList} ${s.text}`}>{getMarkedText(slicedSummary)}</ul> : <p className={s.text}>{slicedSummary}</p>}
                     <p className={s.linkToMore} >Read more <ArrowForwardOutlinedIcon fontSize="small" /></p>
                 </div>
             </div>
