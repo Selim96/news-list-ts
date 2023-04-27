@@ -31,6 +31,15 @@
 .image {
     font-size: 0;
     object-fit: cover;
+    opacity: 0;
+    transition: all 1000ms ease-in;
+}
+
+.onloadedImage {
+    opacity: 1;
+    // animation-name: imageAnimation;
+    // animation-duration: 1000ms;
+    // animation-timing-function: cubic-bezier(.46,.1,.78,.67);
 }
 
 .frameContent {
@@ -139,12 +148,12 @@
 }
 
 
-// @keyframes animateTransform {
-//     0% {
-//         transform: translateY(0);
-//     }
+@keyframes imageAnimation {
+    0% {
+        opacity: 0;
+    }
 
-//     100% {
-//         transform: translateX(calc(100vw - 110px));
-//     }
-// }
+    100% {
+        opacity: 1;
+    }
+}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useCallback, useMemo } from "react";
 import { Link } from "react-router-dom";
 import IArticle from "../../interfaces";
 import { useAppSelector } from "../../redux/hooks";
@@ -7,10 +7,12 @@ import s from './ItemFrame.module.scss';
 import DateRangeOutlinedIcon from '@mui/icons-material/DateRangeOutlined';
 import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined';
 import { nanoid } from 'nanoid';
-import 'lazysizes';
-import 'lazysizes/plugins/parent-fit/ls.parent-fit';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+
 
 const ItemFrame: React.FC<IArticle> = ({ item }) => {
+    const [styles, setStyles] = useState([s.image]);
+
     const { title, id, image_url, summary, published_at, updated_at } = item;
     const slicedTitle = title.length > 60 ? title.slice(0, 60) + '...' : title;
     const slicedSummary = summary.slice(0, 100) + '...';
@@ -18,7 +20,7 @@ const ItemFrame: React.FC<IArticle> = ({ item }) => {
     const filterValue: string = useAppSelector(allSelectors.getFilter);
     const trimFilterValue = filterValue.trim().toLowerCase();
     
-    const getMarkedText = (text: string) => {
+    const getMarkedText = useMemo(() => (text: string) => {
         const wordsArray = text.split(" ");
         const filterArray = trimFilterValue.split(" ");
         const idForKey = nanoid();
@@ -32,13 +34,20 @@ const ItemFrame: React.FC<IArticle> = ({ item }) => {
         });
         
         return result;
-    };
+    }, [trimFilterValue]);
+
+    const onLoadCallback = useCallback(() => {setStyles([...styles, s.onloadedImage])}, [styles]);
+
 
     return (
+        <>
         <Link to={`${id}`} >
             <div className={s.frame}>
+                {/* <ImegeItem image_url={image_url} /> */}
+                
                 <div className={s.imageThumb}>
-                    <img src={image_url} width='100%' height={217} alt='news' className={s.image} />
+                        <LazyLoadImage src={image_url} alt='Image alt' width='100%' height={217} className={styles.join(' ')} onLoadCapture={onLoadCallback} />
+                    {/* <img src={image_url} width='100%' height={217} alt='news' className={styles.join(' ')} loading="lazy" onLoad={addAnimationOnload}/> */}
                 </div>
                 <div className={s.frameContent}>
                     <p className={s.dateText}><DateRangeOutlinedIcon fontSize="small" /> {published_at || updated_at ? published_at || updated_at : 'N/A'}</p>
@@ -50,7 +59,8 @@ const ItemFrame: React.FC<IArticle> = ({ item }) => {
                 </div>
             </div>
         </Link>
-        
+            {/* <button onClick={addAnimationOnload}>Click</button> */}
+        </>
     );
 };
 

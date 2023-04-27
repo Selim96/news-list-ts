@@ -20,7 +20,8 @@ export interface IArticle {
 
 export interface IState {
     allNews: IArticle[];
-    nextPage: string | null,
+    nextPage: string | null;
+    count: number;
     filteredNews: string;
     newsDetails: IArticle;
     error: any;

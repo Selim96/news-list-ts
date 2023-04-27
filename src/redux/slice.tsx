@@ -6,6 +6,7 @@ import { NewsAPI } from "../services/api";
 const initialState: Interfaces.IState = {
     allNews: [],
     nextPage: null,
+    count: 0,
     filteredNews: '',
     newsDetails: null,
     error: null,
@@ -36,6 +37,7 @@ const newsSlice = createSlice({
             state.loading = false;
             state.allNews = payload.results;
             state.nextPage = payload.next;
+            state.count = payload.count;
         });
         builder.addCase(allNews.rejected, (state, { payload }) => {
             state.loading = false;

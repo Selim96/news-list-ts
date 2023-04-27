@@ -44,6 +44,7 @@ const Homepage: React.FC = () => {
     
     const dispatch = useAppDispatch();
     const allNews = useAppSelector(allSelectors.getAllNews);
+    const count = useAppSelector(allSelectors.getCount);
     const filterValue = useAppSelector(allSelectors.getFilter);
     const isLoading = useAppSelector(allSelectors.getLoading);
 
@@ -82,7 +83,7 @@ const Homepage: React.FC = () => {
             <div className={s.mainBox}>
                 <Filter />
 
-                <p className={s.results}>Results: {getFilteredNews().length }</p>
+                <p className={s.results}>Results: {count }</p>
 
                 <ThemeProvider theme={theme}>
                     <Grid container rowSpacing={5} columnSpacing={[0, 0, 2, 6]} >
