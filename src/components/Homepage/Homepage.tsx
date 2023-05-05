@@ -48,46 +48,26 @@ const Homepage: React.FC = () => {
     const filterValue = useAppSelector(allSelectors.getFilter);
     const isLoading = useAppSelector(allSelectors.getLoading);
 
-    const getFilteredNews = () => {
-        const newArray: IArticle[] = [];
-        let indexToAdd = 0;
-        const value: string[] = filterValue.trim().toLowerCase().split(" ");
-
-        if (value.join(" ") !== "") {
-            allNews.forEach((item: IArticle) => {
-                const isInTitle = item.title.toLowerCase().split(" ").some((item) => value.some((elem: string) => elem === item));
-                if (isInTitle) {
-                    newArray.splice(indexToAdd, 0, item);
-                    indexToAdd += 1;
-                    return;
-                }
-
-                const isInSummary = item.summary.toLowerCase().split(" ").some((item) => value.some((elem: string) => elem === item));
-                if (isInSummary) {
-                    newArray.push(item);
-                    return;
-                }
-            });
-            return newArray;
-        } else {
-            return allNews;
-        }
-    };
-
     useEffect(() => {
-        dispatch(newsAPI.AllNewsResult())
-    }, [dispatch]);
+        if (filterValue) {
+            newsAPI.setWordsToFilter(filterValue);
+        }
+        dispatch(newsAPI.AllNewsResult());
+        return () => {
+            newsAPI.setWordsToFilter("");
+        }
+    }, [dispatch, filterValue]);
 
-    return isLoading || (allNews.length === 0) ? (<Loader/>) : (
+    return (
         <Container>
             <div className={s.mainBox}>
                 <Filter />
 
-                <p className={s.results}>Results: {count }</p>
+                <p className={s.results}>Results: {count}</p>
 
-                <ThemeProvider theme={theme}>
+                {isLoading ? <Loader/> : <ThemeProvider theme={theme}>
                     <Grid container rowSpacing={5} columnSpacing={[0, 0, 2, 6]} >
-                        {getFilteredNews().map((item: IArticle) => (
+                        {allNews.map((item: IArticle) => (
                             <Grid item xs={12} md={6} lg={4} key={item.id}>
                                 <Item>
                                     <ItemFrame item={item} />
@@ -95,11 +75,36 @@ const Homepage: React.FC = () => {
                             </Grid>
                         ))}
                     </Grid>
-                </ThemeProvider>
+                </ThemeProvider>}
                 
             </div>
-        </Container>
-    );
+        </Container>)
 }
 
 export default Homepage;
+
+// const getFilteredNews = () => {
+//         const newArray: IArticle[] = [];
+//         let indexToAdd = 0;
+//         const value: string[] = filterValue.trim().toLowerCase().split(" ");
+
+//         if (value.join(" ") !== "") {
+//             allNews.forEach((item: IArticle) => {
+//                 const isInTitle = item.title.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"").replace(/\s{2,}/g, " ").toLowerCase().split(" ").some((item) => value.some((elem: string) => elem === item));
+//                 if (isInTitle) {
+//                     newArray.splice(indexToAdd, 0, item);
+//                     indexToAdd += 1;
+//                     return;
+//                 }
+
+//                 const isInSummary = item.summary.toLowerCase().split(" ").some((item) => value.some((elem: string) => elem === item));
+//                 if (isInSummary) {
+//                     newArray.push(item);
+//                     return;
+//                 }
+//             });
+//             return newArray;
+//         } else {
+//             return allNews;
+//         }
+//     };

@@ -8,6 +8,21 @@ import DateRangeOutlinedIcon from '@mui/icons-material/DateRangeOutlined';
 import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined';
 import { nanoid } from 'nanoid';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
+// const  {Mark} = require('mark.js') ;
+
+const text = 'lalala!!! fff? aaaaaa';
+
+const myReg = new RegExp('la', 'gi');
+const myArr = myReg.exec(text);
+
+const partsText = text.split(new RegExp('fff', 'gi'));
+
+console.log()
+
+
+
+const punctuationless = text.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"");
+const finalString = punctuationless.replace(/\s{2,}/g, " ");
 
 
 const ItemFrame: React.FC<IArticle> = ({ item }) => {
@@ -26,8 +41,30 @@ const ItemFrame: React.FC<IArticle> = ({ item }) => {
         const idForKey = nanoid();
         
         const result = wordsArray.map((word, index) => {
-            const isInFilter = filterArray.some((item: string) => word.toLowerCase() === item);
+            const punctuationIndex = word.search(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g);
+        
+            const isInFilter = filterArray.some((item: string) => {
+                if (punctuationIndex !== -1) {
+                    if (punctuationIndex === 0) {
+                        const pureWord = word.slice(1, word.length);
+                        return pureWord.toLowerCase() === item;
+                    } else {
+                        const pureWord = word.slice(0, punctuationIndex);
+                        // console.log(pureWord)
+                        return pureWord.toLowerCase() === item;
+                    }
+                }
+                return word.toLowerCase() === item;
+            });
             if (isInFilter) {
+                // if (punctuationIndex !== -1) {
+                //     const first = word.slice(0, punctuationIndex);
+                //     const second = word.slice(punctuationIndex, word.length);
+                //     return <>
+                //         <li key={`${idForKey}-${index}-0`} className={s.yellow}>{first}</li>
+                //         <li key={`${idForKey}-${index}-1`}>{second}</li>
+                //     </>
+                // }
                 return <li key={`${idForKey}-${index}`} className={s.yellow}>{word}</li>;
             }
             return <li key={`${idForKey}-${index}`}>{word} </li>;

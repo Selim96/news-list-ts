@@ -9,17 +9,21 @@ interface IResults {
 }
 
 // https://api.spaceflightnewsapi.net/v3/articles
+const str ='https://api.spaceflightnewsapi.net/v4/articles/?limit=10&offset=0&summary_contains_one=%2C+&title_contains_one=nasa%2C%20space'
 
 export class NewsAPI {
-    private baseURL = 'https://api.spaceflightnewsapi.net/v4/articles';
+    private baseURL = 'https://api.spaceflightnewsapi.net/v4/articles/';
     private limit = 20;
+    private ofset = 0;
+    private wordInSummery = "";
+    private wordInTitle = "";
 
     private articleId: string | undefined = '';
 
     private allNews = createAsyncThunk<IResults, undefined, {rejectValue: any}>(
         "allNews",
         async (_, { rejectWithValue }) => {
-            const response = await fetch(`${this.baseURL}?_limit=${this.limit}`);
+            const response = await fetch(`${this.baseURL}?limit=${this.limit}&offset=${this.ofset}&summary_contains_one=${this.wordInSummery}&title_contains_one=${this.wordInTitle}`);
             // console.log(await response.json())
             if (!response.ok) {
                 return rejectWithValue('Server Error!');
@@ -32,7 +36,7 @@ export class NewsAPI {
     private detailsNews = createAsyncThunk<IArticle[], undefined, {rejectValue: any}>(
         "detailNews",
         async (_, { rejectWithValue }) => {
-            const response = await fetch(`${this.baseURL}/${this.articleId}`);
+            const response = await fetch(`${this.baseURL}${this.articleId}`);
 
             if (!response.ok) {
                 return rejectWithValue('Server Error!');
@@ -77,4 +81,11 @@ export class NewsAPI {
     public setLimit(num: number) {
         this.limit = num;
     };
+
+    public setWordsToFilter(string: string) {
+        const finalString = string.replace(/\s{1,}/g, "%2C%20");
+        console.log(finalString)
+        this.wordInSummery = finalString;
+        this.wordInTitle = finalString;
+    }
 }

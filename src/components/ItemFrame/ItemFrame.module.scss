@@ -16,6 +16,9 @@
         transform: translateX(0%);
         transition:transform 500ms linear;
     }
+    &:hover .title {
+        text-decoration: underline;
+    }
 }
 
 .imageThumb {

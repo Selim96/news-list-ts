@@ -7,7 +7,7 @@ const initialState: Interfaces.IState = {
     allNews: [],
     nextPage: null,
     count: 0,
-    filteredNews: '',
+    filterWords: '',
     newsDetails: null,
     error: null,
     loading: false
@@ -22,7 +22,7 @@ const newsSlice = createSlice({
     initialState,
     reducers: {
         filterNews: (state, action: PayloadAction<string>) => {
-            state.filteredNews = action.payload;
+            state.filterWords = action.payload;
         },
         cleanDetails: (state) => {
             state.newsDetails = null;

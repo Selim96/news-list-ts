@@ -13,16 +13,18 @@ const Filter: React.FC = () => {
     const filterValue = useAppSelector(allSelectors.getFilter);
 
     const onHandlInput = (e: any) => {
-        dispatch(filterNews(e.target.value))
+        const punctuationless = e.target.value.replace(/[.,'"\/#!?$%\^&\*;:{}=\-_`~()]/g,"").toLowerCase();
+        const finalString = punctuationless.replace(/\s{2,}/g, " ").trim();
+        dispatch(filterNews(finalString));
     };
 
-    const debouncedHandler = useMemo(()=> debounce(onHandlInput, 500), []);
+    const debouncedHandler = useMemo(()=> debounce(onHandlInput, 500), [onHandlInput]);
 
     useEffect(() => {
         return () => {
             debouncedHandler.cancel();
         }
-    }, []);
+    }, [debouncedHandler]);
     
     return (
         <div className={s.mainBox}>
