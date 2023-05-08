@@ -18,7 +18,7 @@ const Filter: React.FC = () => {
         dispatch(filterNews(finalString));
     };
 
-    const debouncedHandler = useMemo(()=> debounce(onHandlInput, 500), [onHandlInput]);
+    const debouncedHandler = useMemo(()=> debounce(onHandlInput, 500), []);
 
     useEffect(() => {
         return () => {

@@ -16,6 +16,7 @@ const initialState: Interfaces.IState = {
 const newsAPI = new NewsAPI();
 const allNews = newsAPI.AllNews();
 const detailsNews = newsAPI.DetailsNews();
+// const onLoadMore = newsAPI.onLoadMore();
 
 const newsSlice = createSlice({
     name: "news",
@@ -33,11 +34,17 @@ const newsSlice = createSlice({
             state.loading = true;
             state.error = null;
         });
-        builder.addCase(allNews.fulfilled, (state, { payload }) => {
-            state.loading = false;
-            state.allNews = payload.results;
-            state.nextPage = payload.next;
-            state.count = payload.count;
+        builder.addCase(allNews.fulfilled, (state: Interfaces.IState, { payload }) => {
+            
+                state.loading = false;
+                state.allNews.push(...payload.results);
+                state.nextPage = payload.next;
+                state.count = payload.count;
+            
+                // state.allNews.push(payload.results);
+                
+            
+            
         });
         builder.addCase(allNews.rejected, (state, { payload }) => {
             state.loading = false;
@@ -46,6 +53,24 @@ const newsSlice = createSlice({
                 toast.error("Fatal error");
             }
         });
+        // builder.addCase(onLoadMore.pending, (state) => {
+            
+        //     state.error = null;
+        // });
+        // builder.addCase(onLoadMore.fulfilled, (state, { payload }) => {
+            
+        //     state.allNews = [...state.allNews, ...payload.results];
+        //     state.nextPage = payload.next;
+            
+        // });
+        // builder.addCase(onLoadMore.rejected, (state, { payload }) => {
+            
+        //     state.error = payload;
+        //     if (payload) {
+        //         toast.error("Fatal error");
+        //     }
+        // });
+
         builder.addCase(detailsNews.pending, (state) => {
             state.loading = true;
             state.error = null;

@@ -23,6 +23,8 @@ const Detailspage: React.FC = () => {
 
     const handleClick = () => {
         navigate('/');
+        newsAPI.resetPage();
+        console.log(newsAPI.getPage())
         dispatch(cleanDetails());
     };
 
