@@ -23,15 +23,13 @@ const Detailspage: React.FC = () => {
 
     const handleClick = () => {
         navigate('/');
-        newsAPI.resetPage();
-        console.log(newsAPI.getPage())
         dispatch(cleanDetails());
     };
-
 
     useEffect(() => {
         newsAPI.setArticleId(id);
         dispatch(newsAPI.DetailsNewsResult());
+        
     }, [dispatch, id]);
 
     if (newsDetail !== null) {

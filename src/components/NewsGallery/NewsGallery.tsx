@@ -69,44 +69,48 @@ const NewsGallery: React.FC = () => {
         document.addEventListener('scroll', onScrollHandler);
         return () => {
             document.removeEventListener('scroll', onScrollHandler);
-        }
+        };
     }, [onScrollHandler]);
 
     useEffect(() => {
         if (isFetching) {
             console.log('fetching effect');
-            console.log(newsAPI.getPage());
+            
+            if (notInitialRender.current) {
+                newsAPI.increasePage();
+            } else { newsAPI.resetPage() };
+            
+            newsAPI.setWordsToFilter(filterValue);
+            
             newsAPI.fetchingNews().then(res => {
                 setCards(prev => [...prev, ...res.results]);
                 setCount(res.count);
-                newsAPI.increasePage();
+                
             }).finally(() => setIsFetching(false));
             dispatch(newsAPI.AllNewsResult());
         }
         // dispatch(newsAPI.AllNewsResult());
-        
-    }, [isFetching]);
+    }, [isFetching, dispatch]);
 
     useEffect(() => {
         console.log('2 effect')
         if (filterValue) {
-            console.log('filter effect')
-            
+            console.log('filter effect');
             newsAPI.setWordsToFilter(filterValue);
         }
+        console.log('notInitial render:', notInitialRender.current)
         if (notInitialRender.current) {
             newsAPI.resetPage();
             newsAPI.fetchingNews().then(res => {
                 setCards(res.results);
                 setCount(res.count);
-                newsAPI.increasePage();
             });
             dispatch(newsAPI.AllNewsResult());
         } else {
             notInitialRender.current = true;
         }
-        // return () => { newsAPI.setWordsToFilter("") }
-    }, [filterValue]);
+        return () => { newsAPI.setWordsToFilter("") }
+    }, [filterValue, dispatch]);
 
     const isLoading = false;
 
