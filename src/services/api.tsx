@@ -113,7 +113,6 @@ export class NewsAPI {
 
     public setWordsToFilter(string: string) {
         const finalString = string.replace(/\s{1,}/g, "%2C%20");
-        console.log(finalString)
         this.wordInSummery = finalString;
         this.wordInTitle = finalString;
     };

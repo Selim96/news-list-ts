@@ -4,17 +4,17 @@ import Loader from './Loader';
 const Homepage = lazy(() => import("./Homepage/Homepage"));
 const Detailspage = lazy(() => import("./Detailspage/Detailspage"));
 
-const App: React.FC =() => {
+const App: React.FC = () => {
   return (
     <>
       <Suspense fallback={<Loader />}>
         <Routes>
-          <Route path="/" element={ <Homepage/>} />
-          <Route path='/:id' element={<Detailspage/>} />
+          <Route path="/" element={<Homepage />} />
+          <Route path='/:id' element={<Detailspage />} />
         </Routes>
       </Suspense>
     </>
   );
-}
+};
 
 export default App;

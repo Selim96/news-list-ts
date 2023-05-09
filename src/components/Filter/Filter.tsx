@@ -27,7 +27,7 @@ const Filter: React.FC = () => {
     }, [debouncedHandler]);
     
     return (
-        <div className={s.mainBox}>
+        <div className={s.mainBox} id="filter">
             <p className={s.text}>Filter by keywords</p>
             <TextField
                 id="outlined-basic"

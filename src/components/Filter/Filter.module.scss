@@ -3,6 +3,7 @@
 .mainBox {
     width: 100%;
     margin-bottom: 40px;
+    padding-top: 15px;
 
     @include mq(mobile) {
         

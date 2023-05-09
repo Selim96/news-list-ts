@@ -4,6 +4,7 @@ import allSelectors from '../../redux/selectors';
 import Container from "../Container";
 import NewsGallery from '../NewsGallery';
 import Filter from "../Filter";
+import UpButton from "../UpButton";
 import s from './Homepage.module.scss';
 
 const Homepage: React.FC = () => {
@@ -15,7 +16,8 @@ const Homepage: React.FC = () => {
             <div className={s.mainBox}>
                 <Filter />
                 <p className={s.results}>Results: {count}</p>
-                <NewsGallery/>
+                <NewsGallery />
+                <UpButton/>
             </div>
         </Container>)
 }

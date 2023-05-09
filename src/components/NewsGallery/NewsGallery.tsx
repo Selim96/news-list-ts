@@ -74,7 +74,7 @@ const NewsGallery: React.FC = () => {
 
     useEffect(() => {
         if (isFetching) {
-            console.log('fetching effect');
+            // console.log('fetching effect');
             
             if (notInitialRender.current) {
                 newsAPI.increasePage();
@@ -93,12 +93,12 @@ const NewsGallery: React.FC = () => {
     }, [isFetching, dispatch]);
 
     useEffect(() => {
-        console.log('2 effect')
+        // console.log('2 effect')
         if (filterValue) {
-            console.log('filter effect');
+            // console.log('filter effect');
             newsAPI.setWordsToFilter(filterValue);
         }
-        console.log('notInitial render:', notInitialRender.current)
+        
         if (notInitialRender.current) {
             newsAPI.resetPage();
             newsAPI.fetchingNews().then(res => {
