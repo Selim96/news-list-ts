@@ -1,10 +1,10 @@
 import React from "react";
 import { useAppSelector } from "../../redux/hooks";
 import allSelectors from '../../redux/selectors';
-import Container from "../Container";
-import NewsGallery from '../NewsGallery';
-import Filter from "../Filter";
-import UpButton from "../UpButton";
+import Container from "../../components/Container";
+import NewsGallery from '../../components/NewsGallery';
+import Filter from "../../components/Filter";
+import UpButton from "../../components/UpButton";
 import s from './Homepage.module.scss';
 
 const Homepage: React.FC = () => {
@@ -13,12 +13,13 @@ const Homepage: React.FC = () => {
 
     return (
         <Container>
-            <div className={s.mainBox}>
+            <main className={s.mainBox}>
+                <h1 className={s.title} id="title">All Spaceflight News Of The World</h1>
                 <Filter />
                 <p className={s.results}>Results: {count}</p>
                 <NewsGallery />
                 <UpButton/>
-            </div>
+            </main>
         </Container>)
 }
 

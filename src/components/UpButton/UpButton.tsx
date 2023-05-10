@@ -18,7 +18,7 @@ const UpButton:React.FC = () => {
     return (
         <div className={s.wrapper}>
             <button className={buttonStyles.join(" ")} disabled={inView} type='button' >
-                <a href='#filter'>
+                <a href='#title'>
                     <ArrowUpwardIcon fontSize="large" />
                 </a>
             </button>
