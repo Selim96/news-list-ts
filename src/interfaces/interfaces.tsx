@@ -26,4 +26,5 @@ export interface IState {
     newsDetails: IArticle;
     error: any;
     loading: boolean;
+    modalIsOpen: boolean;
 };

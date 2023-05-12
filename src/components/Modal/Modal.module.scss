@@ -1,0 +1,56 @@
+@import "../../stylesheet/mixin";
+
+.overlay {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 0px;
+    background-color: #fff;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1200;
+    
+    @include mq(mobile){
+        margin-top: 0px;
+        background-color: rgba(0, 0, 0, 0.8);
+    }
+}
+
+.modal {
+    position: relative;
+    border-radius: 20px;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    padding-left: 20px;
+    padding-right: 20px;
+    @include mq(mobile){
+        width: 540px;
+        height: auto;
+        max-width: calc(100vw - 48px);
+        max-height: calc(100vh - 24px);
+        background-image: url('../../assets/images/imgForModal1.jpg');
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+};
+
+.closeBtn {
+    position: absolute;
+    top: 12px;
+    right: 15px;
+    width: 24px;
+    height: 24px;
+    border-radius: 5px;
+    background-color: transparent;
+    &:hover {
+        cursor: pointer;
+        box-shadow: 0px 0px 5px var(--header-shadow);
+    }
+}

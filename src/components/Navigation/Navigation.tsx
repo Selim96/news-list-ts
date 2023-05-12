@@ -4,9 +4,9 @@ import s from './Navigation.module.scss';
 
 const Navigation: React.FC = () => {
     return <nav className={s.navigation}>
-        <Link to='/'>Home</Link>
-        <Link to='/reports'>Reports</Link>
-        <Link to='/blog'>Blog</Link>
+        <Link to='/' className={s.navigation_link}>Home</Link>
+        <Link to='/reports' className={s.navigation_link}>Reports</Link>
+        <Link to='/blog' className={s.navigation_link}>Blog</Link>
     </nav>
 };
 

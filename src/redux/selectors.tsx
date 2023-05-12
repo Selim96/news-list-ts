@@ -7,6 +7,7 @@ const getFilter = (state: Interfaces.Istate) => state.filterWords;
 const getDetails = (state: Interfaces.Istate) => state.newsDetails;
 const getError = (state:Interfaces.Istate) => state.error;
 const getLoading = (state: Interfaces.Istate) => state.loading;
+const getModal = (state: Interfaces.Istate) => state.modalIsOpen;
 
 const allSelectors = {
     getAllNews,
@@ -15,7 +16,8 @@ const allSelectors = {
     getFilter,
     getDetails,
     getError,
-    getLoading
+    getLoading,
+    getModal
 }
 
 export default allSelectors;

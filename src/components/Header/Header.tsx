@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Logo from '../Logo';
 import Navigation from '../Navigation';
+import ContactBtn from '../ContactBtn';
 import s from './Header.module.scss';
 
 const Header: React.FC = () => {
@@ -9,7 +10,8 @@ const Header: React.FC = () => {
         <Link to={'/'}>
             <Logo/>
         </Link>
-        <Navigation/>
+        <Navigation />
+        <ContactBtn/>
     </header>
 };
 

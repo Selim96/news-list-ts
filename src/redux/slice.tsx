@@ -10,7 +10,8 @@ const initialState: Interfaces.IState = {
     filterWords: '',
     newsDetails: null,
     error: null,
-    loading: false
+    loading: false,
+    modalIsOpen: false
 }
 
 const newsAPI = new NewsAPI();
@@ -27,7 +28,10 @@ const newsSlice = createSlice({
         },
         cleanDetails: (state) => {
             state.newsDetails = null;
-        }
+        },
+        toggleModal: (state) => {
+            state.modalIsOpen = !state.modalIsOpen;
+        },
     },
     extraReducers:(builder) => {
         builder.addCase(allNews.pending, (state) => {
@@ -91,5 +95,5 @@ const newsSlice = createSlice({
 
 const reducer = newsSlice.reducer;
 
-export const { filterNews, cleanDetails } = newsSlice.actions;
+export const { filterNews, cleanDetails, toggleModal } = newsSlice.actions;
 export default reducer;
