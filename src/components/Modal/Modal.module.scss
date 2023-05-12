@@ -29,15 +29,18 @@
     padding-bottom: 40px;
     padding-left: 20px;
     padding-right: 20px;
+    font-family: Montserrat;
     @include mq(mobile){
         width: 540px;
         height: auto;
         max-width: calc(100vw - 48px);
         max-height: calc(100vh - 24px);
-        background-image: url('../../assets/images/imgForModal1.jpg');
+        background-color: rgb(55, 46, 87, 0.7);
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;
+        overflow: hidden;
+        
     }
 };
 
@@ -49,8 +52,62 @@
     height: 24px;
     border-radius: 5px;
     background-color: transparent;
+    cursor: pointer;
     &:hover {
-        cursor: pointer;
+        background-color: #fff;
         box-shadow: 0px 0px 5px var(--header-shadow);
     }
+};
+
+.text {
+    font-size: 18px;
+    font-weight: 400;
+    @include mq(mobile) {
+        color: var(--logo-color);
+    };
+    & {
+        margin-bottom: 15px;
+    }
+};
+
+.form {
+    display: flex;
+    flex-direction: column;
+    // align-items: center;
+};
+
+.button {
+    width: 100px;
+    margin-left: 50%;
+    transform: translateX(-50%);
+};
+
+.contacts_item {
+    & a{
+        color: #fff;
+        font-size: 16px;
+        font-weight: 400;
+        text-decoration: underline;
+    }
 }
+
+.contacts_element{
+    font-family: Montserrat;
+    font-size: 16px;
+    font-weight: 600;
+    color: aqua;
+}
+
+.background {
+    display: none;
+    @include mq(mobile) {
+        display:initial;
+        position: absolute;
+        z-index: -1;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url('../../assets/images/imgForModal1.jpg');
+    };
+};
