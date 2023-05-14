@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { toggleModal } from '../../redux/slice';
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import allSelectors from '../../redux/selectors';

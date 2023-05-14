@@ -45,25 +45,25 @@ const theme = createTheme({
 const newsAPI = new NewsAPI();
 
 const NewsGallery: React.FC = () => {
-    const [cards, setCards] = useState<IArticle[]>([]);
-    const [count, setCount] = useState(0);
+    // const [cards, setCards] = useState<IArticle[]>([]);
+    // const [count, setCount] = useState(0);
     const [isFetching, setIsFetching] = useState(true);
-    const notInitialRender = useRef(false)
+    const notInitialRender = useRef(false);
 
     const dispatch = useAppDispatch();
-    // const allNews = useAppSelector(allSelectors.getAllNews);
-    // const count = useAppSelector(allSelectors.getCount);
+    const allNews = useAppSelector(allSelectors.getAllNews);
+    const count = useAppSelector(allSelectors.getCount);
     const filterValue = useAppSelector(allSelectors.getFilter);
     // const isLoading = useAppSelector(allSelectors.getLoading);
 
     const onScrollHandler = useCallback((e: any) => {
-        if ((e.target.documentElement.scrollHeight - (e.target.documentElement.scrollTop + window.innerHeight) < 250) && count !== cards.length ) {
+        if ((e.target.documentElement.scrollHeight - (e.target.documentElement.scrollTop + window.innerHeight) < 250) && count !== allNews.length ) {
             console.log('scroll');
             
             setIsFetching(true);
             console.log(newsAPI.getPage());
         }
-    }, [cards, count]);
+    }, [allNews, count]);
 
     useEffect(() => {
         document.addEventListener('scroll', onScrollHandler);
@@ -74,7 +74,6 @@ const NewsGallery: React.FC = () => {
 
     useEffect(() => {
         if (isFetching) {
-            // console.log('fetching effect');
             
             if (notInitialRender.current) {
                 newsAPI.increasePage();
@@ -82,29 +81,27 @@ const NewsGallery: React.FC = () => {
             
             newsAPI.setWordsToFilter(filterValue);
             
-            newsAPI.fetchingNews().then(res => {
-                setCards(prev => [...prev, ...res.results]);
-                setCount(res.count);
+            // newsAPI.fetchingNews().then(res => {
+            //     setCards(prev => [...prev, ...res.results]);
+            //     setCount(res.count);
                 
-            }).finally(() => setIsFetching(false));
+            // }).finally(() => setIsFetching(false));
             dispatch(newsAPI.AllNewsResult());
+            setIsFetching(false);
         }
-        // dispatch(newsAPI.AllNewsResult());
     }, [isFetching, dispatch]);
 
     useEffect(() => {
-        // console.log('2 effect')
         if (filterValue) {
-            // console.log('filter effect');
             newsAPI.setWordsToFilter(filterValue);
         }
         
         if (notInitialRender.current) {
             newsAPI.resetPage();
-            newsAPI.fetchingNews().then(res => {
-                setCards(res.results);
-                setCount(res.count);
-            });
+            // newsAPI.fetchingNews().then(res => {
+            //     setCards(res.results);
+            //     setCount(res.count);
+            // });
             dispatch(newsAPI.AllNewsResult());
         } else {
             notInitialRender.current = true;
@@ -117,7 +114,7 @@ const NewsGallery: React.FC = () => {
     return (<>
         {isLoading ? <Loader /> : <ThemeProvider theme={theme}>
             <Grid container rowSpacing={5} columnSpacing={[0, 0, 2, 6]} >
-                {cards.map((item: IArticle) => (
+                {allNews.map((item: IArticle) => (
                     <Grid item xs={12} md={6} lg={4} key={item.id}>
                         <Item>
                             <ItemFrame item={item} />

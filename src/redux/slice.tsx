@@ -11,7 +11,7 @@ const initialState: Interfaces.IState = {
     newsDetails: null,
     error: null,
     loading: false,
-    modalIsOpen: false
+    modalIsOpen: false,
 }
 
 const newsAPI = new NewsAPI();
@@ -23,6 +23,9 @@ const newsSlice = createSlice({
     name: "news",
     initialState,
     reducers: {
+        resetAllNews: (state) => {
+            state.allNews = [];
+        },
         filterNews: (state, action: PayloadAction<string>) => {
             state.filterWords = action.payload;
         },
@@ -95,5 +98,5 @@ const newsSlice = createSlice({
 
 const reducer = newsSlice.reducer;
 
-export const { filterNews, cleanDetails, toggleModal } = newsSlice.actions;
+export const {resetAllNews, filterNews, cleanDetails, toggleModal } = newsSlice.actions;
 export default reducer;
