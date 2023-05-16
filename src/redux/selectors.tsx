@@ -8,6 +8,7 @@ const getDetails = (state: Interfaces.Istate) => state.newsDetails;
 const getError = (state:Interfaces.Istate) => state.error;
 const getLoading = (state: Interfaces.Istate) => state.loading;
 const getModal = (state: Interfaces.Istate) => state.modalIsOpen;
+const getIsFetching = (state: Interfaces.Istate) => state.isFetching;
 
 const allSelectors = {
     getAllNews,
@@ -17,7 +18,8 @@ const allSelectors = {
     getDetails,
     getError,
     getLoading,
-    getModal
+    getModal,
+    getIsFetching
 }
 
 export default allSelectors;

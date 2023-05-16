@@ -1,6 +1,7 @@
-import React, {useState, useEffect, useCallback, useRef} from 'react';
+import React, {useEffect, useCallback, useRef} from 'react';
 import { useAppSelector, useAppDispatch } from "../../redux/hooks";
 import allSelectors from '../../redux/selectors';
+import { resetAllNews, setIsFetching } from '../../redux/slice';
 import ItemFrame from "../ItemFrame";
 import Loader from "../Loader/Loader";
 import { NewsAPI } from "../../services/api";
@@ -35,35 +36,29 @@ const theme = createTheme({
   }
 });
 
-// interface IResponse {
-//     results: IArticle[];
-//     count: number;
-//     next: null | string;
-//     previous: null | string;
-// }
-
 const newsAPI = new NewsAPI();
 
 const NewsGallery: React.FC = () => {
     // const [cards, setCards] = useState<IArticle[]>([]);
     // const [count, setCount] = useState(0);
-    const [isFetching, setIsFetching] = useState(true);
+    // const [isFetching, setIsFetching] = useState(true);
     const notInitialRender = useRef(false);
 
     const dispatch = useAppDispatch();
     const allNews = useAppSelector(allSelectors.getAllNews);
     const count = useAppSelector(allSelectors.getCount);
     const filterValue = useAppSelector(allSelectors.getFilter);
+    const isFetching = useAppSelector(allSelectors.getIsFetching);
     // const isLoading = useAppSelector(allSelectors.getLoading);
 
     const onScrollHandler = useCallback((e: any) => {
         if ((e.target.documentElement.scrollHeight - (e.target.documentElement.scrollTop + window.innerHeight) < 250) && count !== allNews.length ) {
             console.log('scroll');
-            
-            setIsFetching(true);
+            dispatch(setIsFetching());
+            // setIsFetching(true);
             console.log(newsAPI.getPage());
         }
-    }, [allNews, count]);
+    }, [allNews, count, dispatch]);
 
     useEffect(() => {
         document.addEventListener('scroll', onScrollHandler);
@@ -74,34 +69,32 @@ const NewsGallery: React.FC = () => {
 
     useEffect(() => {
         if (isFetching) {
-            
+            console.log('scrolling fetch')
             if (notInitialRender.current) {
                 newsAPI.increasePage();
             } else { newsAPI.resetPage() };
-            
-            newsAPI.setWordsToFilter(filterValue);
-            
+            // newsAPI.setWordsToFilter(filterValue);
             // newsAPI.fetchingNews().then(res => {
             //     setCards(prev => [...prev, ...res.results]);
             //     setCount(res.count);
                 
             // }).finally(() => setIsFetching(false));
             dispatch(newsAPI.AllNewsResult());
-            setIsFetching(false);
         }
     }, [isFetching, dispatch]);
 
     useEffect(() => {
         if (filterValue) {
             newsAPI.setWordsToFilter(filterValue);
-        }
-        
+        };
         if (notInitialRender.current) {
+            console.log('filter fetch')
             newsAPI.resetPage();
             // newsAPI.fetchingNews().then(res => {
             //     setCards(res.results);
             //     setCount(res.count);
             // });
+            dispatch(resetAllNews());
             dispatch(newsAPI.AllNewsResult());
         } else {
             notInitialRender.current = true;

@@ -12,6 +12,7 @@ const initialState: Interfaces.IState = {
     error: null,
     loading: false,
     modalIsOpen: false,
+    isFetching: true
 }
 
 const newsAPI = new NewsAPI();
@@ -35,6 +36,9 @@ const newsSlice = createSlice({
         toggleModal: (state) => {
             state.modalIsOpen = !state.modalIsOpen;
         },
+        setIsFetching: (state) => {
+            state.isFetching = true;
+        },
     },
     extraReducers:(builder) => {
         builder.addCase(allNews.pending, (state) => {
@@ -42,16 +46,11 @@ const newsSlice = createSlice({
             state.error = null;
         });
         builder.addCase(allNews.fulfilled, (state: Interfaces.IState, { payload }) => {
-            
                 state.loading = false;
                 state.allNews.push(...payload.results);
                 state.nextPage = payload.next;
                 state.count = payload.count;
-            
-                // state.allNews.push(payload.results);
-                
-            
-            
+                state.isFetching = false;
         });
         builder.addCase(allNews.rejected, (state, { payload }) => {
             state.loading = false;
@@ -98,5 +97,5 @@ const newsSlice = createSlice({
 
 const reducer = newsSlice.reducer;
 
-export const {resetAllNews, filterNews, cleanDetails, toggleModal } = newsSlice.actions;
+export const {resetAllNews, filterNews, cleanDetails, toggleModal, setIsFetching } = newsSlice.actions;
 export default reducer;
