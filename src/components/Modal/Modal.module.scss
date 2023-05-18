@@ -85,6 +85,7 @@
 
 .contacts {
     @extend %sample;
+    font-weight: 600;
     margin-bottom: 10px;
 }
 
@@ -94,10 +95,13 @@
 
 .contacts_item {
     & a{
-        color: #fff;
         font-size: 16px;
         font-weight: 400;
         text-decoration: underline;
+        color: var(--black-color);
+        @include mq(mobile){
+            color: var(--logo-color);
+        }
     }
 }
 
@@ -126,7 +130,7 @@
     };
     & .button {
         width: 100px;
-        height: 25px;
+        height: 40px;
         margin-left: 50%;
         transform: translateX(-50%);
         border: 2px solid rgb(15, 13, 19);
@@ -134,14 +138,22 @@
         font-family: Montserrat;
         font-size: 15px;
         font-weight: 600;
-        background-color: transparent;
+        background-color: var(--header-color);
         color: var(--logo-color);
         cursor: pointer;
 
         &:hover {
-            color: #000;
-            background-color: var(--logo-color);
+            color: var(--header-color);
+            background-color: transparent;
         };
+
+        @include mq(mobile){
+            background-color: transparent;
+            &:hover {
+            color: var(--header-color);
+            background-color: var(--logo-color);
+            };
+        }
     }
 };
 
