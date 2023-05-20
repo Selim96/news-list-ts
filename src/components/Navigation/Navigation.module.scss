@@ -1,14 +1,23 @@
 .navigation a{
-    color: var(--logo-color);
+    
 }
 
+
+
 .navigation_link {
+    color: var(--logo-color);
     font-family: Montserrat;
     font-size: 16px;
     font-weight: 400;
     margin-right: 10px;
+    
 
     &:hover {
         text-decoration: underline;
     };
 }
+
+.active {
+    font-weight: 600;
+    text-decoration: underline;
+};
