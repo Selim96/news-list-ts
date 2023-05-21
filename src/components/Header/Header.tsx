@@ -12,16 +12,15 @@ const Header: React.FC = () => {
         
         <Media queries={{
             small: "(max-width: 480px)",
-            medium: "(max-width: 860px)",
-            large: "(min-width: 861px)"
+            medium: "(max-width: 859px)",
+            large: "(min-width: 860px)"
         }}>
             {matches => (
             <>
-                {matches.medium && <p>I am medium!</p>}
-                    {matches.large && <>
-                        <Navigation />
-                        <ContactBtn />
-                    </>}
+                {matches.large && <>
+                    <Navigation />
+                    <ContactBtn />
+                </>}
             </>
             )}
         </Media>

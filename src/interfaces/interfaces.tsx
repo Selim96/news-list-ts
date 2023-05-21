@@ -27,4 +27,6 @@ export interface IState {
     error: any;
     loading: boolean;
     modalIsOpen: boolean;
+    isFetching: boolean;
+    isMenuClicked: boolean;
 };

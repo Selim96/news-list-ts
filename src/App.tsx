@@ -2,6 +2,7 @@ import React, {lazy, Suspense} from 'react';
 import { Route, Routes } from "react-router-dom";
 import Loader from './components/Loader';
 import Header from './components/Header';
+import BurgerMenu from './components/BurgerMenu';
 import { useAppSelector } from './redux/hooks';
 import allSelectors from './redux/selectors';
 import Modal from './components/Modal';
@@ -17,6 +18,7 @@ const App: React.FC = () => {
   return (
     <>
       <Header />
+      <BurgerMenu/>
       {isModalOpen && <Modal/>}
       <Suspense fallback={<Loader />}>
         <Routes>

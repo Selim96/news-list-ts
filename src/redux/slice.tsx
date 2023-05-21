@@ -12,7 +12,8 @@ const initialState: Interfaces.IState = {
     error: null,
     loading: false,
     modalIsOpen: false,
-    isFetching: true
+    isFetching: true,
+    isMenuClicked: false,
 }
 
 const newsAPI = new NewsAPI();
@@ -38,6 +39,9 @@ const newsSlice = createSlice({
         },
         setIsFetching: (state) => {
             state.isFetching = true;
+        },
+        setIsMenuClicked: (state) => {
+            state.isMenuClicked = !state.isMenuClicked;
         },
     },
     extraReducers:(builder) => {
@@ -97,5 +101,5 @@ const newsSlice = createSlice({
 
 const reducer = newsSlice.reducer;
 
-export const {resetAllNews, filterNews, cleanDetails, toggleModal, setIsFetching } = newsSlice.actions;
+export const {resetAllNews, filterNews, cleanDetails, toggleModal, setIsFetching, setIsMenuClicked } = newsSlice.actions;
 export default reducer;
