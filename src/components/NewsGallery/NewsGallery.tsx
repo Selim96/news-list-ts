@@ -49,14 +49,10 @@ const NewsGallery: React.FC = () => {
     const count = useAppSelector(allSelectors.getCount);
     const filterValue = useAppSelector(allSelectors.getFilter);
     const isFetching = useAppSelector(allSelectors.getIsFetching);
-    // const isLoading = useAppSelector(allSelectors.getLoading);
 
     const onScrollHandler = useCallback((e: any) => {
         if ((e.target.documentElement.scrollHeight - (e.target.documentElement.scrollTop + window.innerHeight) < 250) && count !== allNews.length ) {
-            console.log('scroll');
             dispatch(setIsFetching());
-            // setIsFetching(true);
-            console.log(newsAPI.getPage());
         }
     }, [allNews, count, dispatch]);
 
@@ -69,7 +65,6 @@ const NewsGallery: React.FC = () => {
 
     useEffect(() => {
         if (isFetching) {
-            console.log('scrolling fetch')
             if (notInitialRender.current) {
                 newsAPI.increasePage();
             } else { newsAPI.resetPage() };
@@ -88,7 +83,6 @@ const NewsGallery: React.FC = () => {
             newsAPI.setWordsToFilter(filterValue);
         };
         if (notInitialRender.current) {
-            console.log('filter fetch')
             newsAPI.resetPage();
             // newsAPI.fetchingNews().then(res => {
             //     setCards(res.results);

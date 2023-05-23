@@ -75,6 +75,8 @@ const ItemFrame: React.FC<IArticle> = ({ item }) => {
 
     const onLoadCallback = useCallback(() => {setStyles([...styles, s.onloadedImage])}, [styles]);
 
+    const date = new Date(published_at);
+    const publishedAt = date.toDateString().split(" ").slice(1).join(" ");
 
     return (
         <>
@@ -87,7 +89,7 @@ const ItemFrame: React.FC<IArticle> = ({ item }) => {
                     {/* <img src={image_url} width='100%' height={217} alt='news' className={styles.join(' ')} loading="lazy" onLoad={addAnimationOnload}/> */}
                 </div>
                 <div className={s.frameContent}>
-                    <p className={s.dateText}><DateRangeOutlinedIcon fontSize="small" /> {published_at || updated_at ? published_at || updated_at : 'N/A'}</p>
+                    <p className={s.dateText}><DateRangeOutlinedIcon fontSize="small" /> {publishedAt}</p>
                     <div className={s.animationBox}>
                         {trimFilterValue ? <ul className={`${s.textList} ${s.title}`}>{getMarkedText(title)}</ul> : <h2 className={s.title}>{slicedTitle}</h2>}
                     </div>
