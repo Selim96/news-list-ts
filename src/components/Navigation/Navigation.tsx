@@ -11,7 +11,11 @@ const Navigation: React.FC = () => {
     const dispatch = useAppDispatch();
 
     const clickToCloseMenu = () => {
-        dispatch(setIsMenuClicked());
+        console.log(window.innerWidth)
+        if (window.innerWidth < 860) {
+            dispatch(setIsMenuClicked());
+        }
+        
     }
 
     return <nav className={s.navigation}>
