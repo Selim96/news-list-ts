@@ -9,6 +9,7 @@ import Grid from '@mui/material/Grid';
 import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import { IArticle } from "../../interfaces/interfaces";
+import s from './NewsGallery.module.scss';
 
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -103,7 +104,7 @@ const NewsGallery: React.FC = () => {
             <Grid container rowSpacing={5} columnSpacing={[0, 0, 2, 6]} >
                 {allNews.map((item: IArticle) => (
                     <Grid item xs={12} md={6} lg={4} key={item.id}>
-                        <Item>
+                        <Item className={s.itemClass}>
                             <ItemFrame item={item} />
                         </Item>
                     </Grid>

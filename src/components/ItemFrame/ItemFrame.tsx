@@ -80,7 +80,7 @@ const ItemFrame: React.FC<IArticle> = ({ item }) => {
 
     return (
         <>
-        <Link to={`${id}`} >
+        <Link to={`${id}`} className={s.linkFrame}>
             <div className={s.frame}>
                 {/* <ImegeItem image_url={image_url} /> */}
                 
