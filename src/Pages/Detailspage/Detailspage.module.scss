@@ -70,3 +70,33 @@
     }
     
 }
+
+.reference {
+    width: 100%;
+    margin-top: 50px;
+}
+
+.reference_text {
+    font-family: 'Montserrat';
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 1.5;
+    color: #000000;
+}
+
+.reference_link{
+    font-family: 'Montserrat';
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 1.5;
+    color: #000000;
+    display: flex;
+    align-items: center;
+    &:hover {
+        font-weight: 600;
+    }
+}
+
+.link_icon{
+    margin-right: 10px;
+}

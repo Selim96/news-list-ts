@@ -100,17 +100,20 @@ const NewsGallery: React.FC = () => {
     const isLoading = false;
 
     return (<>
-        {isLoading ? <Loader /> : <ThemeProvider theme={theme}>
-            <Grid container rowSpacing={5} columnSpacing={[0, 0, 2, 6]} >
-                {allNews.map((item: IArticle) => (
-                    <Grid item xs={12} md={6} lg={4} key={item.id}>
-                        <Item className={s.itemClass}>
-                            <ItemFrame item={item} />
-                        </Item>
-                    </Grid>
-                ))}
-            </Grid>
-        </ThemeProvider>}
+        {isLoading ? <Loader /> : <> 
+            <ThemeProvider theme={theme}>
+                <Grid container rowSpacing={5} columnSpacing={[0, 0, 2, 6]} >
+                    {allNews && allNews.map((item: IArticle) => (
+                        <Grid item xs={12} md={6} lg={4} key={item.id}>
+                            <Item className={s.itemClass}>
+                                <ItemFrame item={item} />
+                            </Item>
+                        </Grid>
+                    ))}
+                </Grid>
+            </ThemeProvider>
+            </>
+        }
     </>
     );
 };

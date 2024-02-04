@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import IArticle from '../interfaces';
+import {IArticle} from '../interfaces/interfaces';
 
 interface IResults {
     count: number;
@@ -41,7 +41,7 @@ export class NewsAPI {
             return await response.json();
     }
 
-    private detailsNews = createAsyncThunk<IArticle[], undefined, {rejectValue: any}>(
+    private detailsNews = createAsyncThunk<IArticle, undefined, {rejectValue: any}>(
         "detailNews",
         async (_, { rejectWithValue }) => {
             const response = await fetch(`${this.baseURL}${this.articleId}`);

@@ -1,6 +1,6 @@
 import React, {useState, useCallback, useMemo } from "react";
 import { Link } from "react-router-dom";
-import IArticle from "../../interfaces";
+import {IArticle} from "../../interfaces/interfaces";
 import { useAppSelector } from "../../redux/hooks";
 import allSelectors from '../../redux/selectors';
 import s from './ItemFrame.module.scss';
@@ -24,8 +24,12 @@ console.log()
 const punctuationless = text.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"");
 const finalString = punctuationless.replace(/\s{2,}/g, " ");
 
+interface IItem  {
+    item: IArticle
+}
 
-const ItemFrame: React.FC<IArticle> = ({ item }) => {
+
+const ItemFrame: React.FC<IItem> = ({ item }) => {
     const [styles, setStyles] = useState([s.image]);
 
     const { title, id, image_url, summary, published_at, updated_at } = item;
@@ -85,7 +89,7 @@ const ItemFrame: React.FC<IArticle> = ({ item }) => {
                 {/* <ImegeItem image_url={image_url} /> */}
                 
                 <div className={s.imageThumb}>
-                        <LazyLoadImage src={image_url} alt='Image alt' width='100%' height={217} className={styles.join(' ')} onLoadCapture={onLoadCallback} />
+                        <LazyLoadImage src={image_url ? image_url : ""} alt='Image alt' width='100%' height={217} className={styles.join(' ')} onLoadCapture={onLoadCallback} />
                     {/* <img src={image_url} width='100%' height={217} alt='news' className={styles.join(' ')} loading="lazy" onLoad={addAnimationOnload}/> */}
                 </div>
                 <div className={s.frameContent}>

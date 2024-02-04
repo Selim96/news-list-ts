@@ -1,10 +1,11 @@
 import { createSlice, PayloadAction  } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
-import  Interfaces from "../interfaces";
+import  {IState, IArticle} from "../interfaces/interfaces";
 import { NewsAPI } from "../services/api";
 
-const initialState: Interfaces.IState = {
+const initialState: IState = {
     allNews: [],
+    blogs: [],
     nextPage: null,
     count: 0,
     filterWords: '',
@@ -49,7 +50,7 @@ const newsSlice = createSlice({
             state.loading = true;
             state.error = null;
         });
-        builder.addCase(allNews.fulfilled, (state: Interfaces.IState, { payload }) => {
+        builder.addCase(allNews.fulfilled, (state: IState, { payload }) => {
                 state.loading = false;
                 state.allNews.push(...payload.results);
                 state.nextPage = payload.next;
@@ -85,9 +86,9 @@ const newsSlice = createSlice({
             state.loading = true;
             state.error = null;
         });
-        builder.addCase(detailsNews.fulfilled, (state, { payload }) => {
+        builder.addCase(detailsNews.fulfilled, (state, action: PayloadAction<IArticle>) => {
             state.loading = false;
-            state.newsDetails = payload;
+            state.newsDetails = action.payload;
         });
         builder.addCase(detailsNews.rejected, (state, { payload }) => {
             state.loading = false;
