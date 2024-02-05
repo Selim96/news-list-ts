@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction  } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
-import  {IState, IArticle} from "../interfaces/interfaces";
+import  {IState, IArticle, IBlog} from "../interfaces/interfaces";
 import { NewsAPI } from "../services/api";
 
 const initialState: IState = {
@@ -91,6 +91,21 @@ const newsSlice = createSlice({
             state.newsDetails = action.payload;
         });
         builder.addCase(detailsNews.rejected, (state, { payload }) => {
+            state.loading = false;
+            state.error = payload;
+            if (payload) {
+                toast.error("Fatal error");
+            }
+        });
+        builder.addCase(newsAPI.getBlogs.pending, (state) => {
+            state.loading = true;
+            state.error = null;
+        });
+        builder.addCase(newsAPI.getBlogs.fulfilled, (state, action) => {
+            state.loading = false;
+            state.blogs = action.payload.results;
+        });
+        builder.addCase(newsAPI.getBlogs.rejected, (state, { payload }) => {
             state.loading = false;
             state.error = payload;
             if (payload) {
