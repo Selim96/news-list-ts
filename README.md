@@ -14,7 +14,7 @@
 ## Installation and Running the Project
 ### 1. Clone the Repository
 ```sh
-git clone https://github.com/yourusername/all-spaceflight-news.git
+git clone https://github.com/Selim96/news-list-ts.git
 cd all-spaceflight-news
 ```
 
@@ -57,7 +57,7 @@ npm run eject
 ---
 
 ## Contact
-If you have any questions or suggestions for improving the project, feel free to reach out at **your.email@example.com** or create an issue in the repository.
+If you have any questions or suggestions for improving the project, feel free to reach out at **selim.fazylov1@gmail.com** or create an issue in the repository.
 
 ---
 
