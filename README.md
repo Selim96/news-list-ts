@@ -1,7 +1,7 @@
 # All Spaceflight News
 
 ## Project Description
-**All Spaceflight News** is a web application built with TypeScript and React.js. The site provides the latest news from the world of aviation and space exploration, using the [Spaceflight News API](https://api.spaceflightnewsapi.net).
+**All Spaceflight News** is a web application built with TypeScript and React.js. The site provides the latest news from the world of aviation and space exploration, using the [Spaceflight News API](https://www.spaceflightnewsapi.net/).
 
 ### Features:
 - View the latest news in a convenient card-based interface.
