@@ -1,3 +1,25 @@
+export interface IReport {
+    id: number;
+    title: string;
+    authors: {
+      name: string;
+      socials: {
+        x: string;
+        youtube: string;
+        instagram: string;
+        linkedin: string;
+        mastodon: string;
+        bluesky: string;
+      };
+    }[];
+    url: string;
+    image_url: string | null;
+    news_site: string;
+    summary: string;
+    published_at: string;
+    updated_at: string;
+};
+
 export interface IArticle {
     id: number;
     title: string;

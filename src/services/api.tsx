@@ -1,11 +1,15 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import {IArticle} from '../interfaces/interfaces';
+import {IArticle, IReport} from '../interfaces/interfaces';
 
 interface IResults {
     count: number;
     next: string;
     previous: string | null;
     results: IArticle[];
+}
+
+interface IReportResults extends  Omit<IResults, 'results'> {
+    results: IReport[];
 }
 
 // https://api.spaceflightnewsapi.net/v3/articles
@@ -49,6 +53,19 @@ export class NewsAPI {
         async (_, { rejectWithValue }) => {
             const response = await fetch(`${this.baseURL}${this.newsEndPoint}/${this.articleId}`);
 
+            if (!response.ok) {
+                return rejectWithValue('Server Error!');
+            }
+            const news =await response.json();
+            return news;
+        }
+    );
+
+    private allReports = createAsyncThunk<IReportResults, undefined, {rejectValue: any}>(
+        "allNews",
+        async (_, { rejectWithValue }) => {
+            const response = await fetch(`${this.baseURL}${this.reportsEndPoint}/?limit=${this.limit}&offset=${this.limit * this.page}&summary_contains_one=${this.wordInSummery}&title_contains_one=${this.wordInTitle}`);
+            
             if (!response.ok) {
                 return rejectWithValue('Server Error!');
             }
