@@ -1,11 +1,13 @@
 import { createSlice, PayloadAction  } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
-import  {IState, IArticle, IBlog} from "../interfaces/interfaces";
+import  {IState, IArticle} from "../interfaces/interfaces";
 import { NewsAPI } from "../services/api";
+import { ReportsAPI } from "../services/reportsApi";
 
 const initialState: IState = {
     allNews: [],
     blogs: [],
+    allReports: [],
     nextPage: null,
     count: 0,
     filterWords: '',
@@ -20,7 +22,9 @@ const initialState: IState = {
 const newsAPI = new NewsAPI();
 const allNews = newsAPI.AllNews();
 const detailsNews = newsAPI.DetailsNews();
-// const onLoadMore = newsAPI.onLoadMore();
+const reportsApi = new ReportsAPI();
+const allReports = reportsApi.getReports();
+
 
 const newsSlice = createSlice({
     name: "news",
@@ -50,14 +54,29 @@ const newsSlice = createSlice({
             state.loading = true;
             state.error = null;
         });
-        builder.addCase(allNews.fulfilled, (state: IState, { payload }) => {
-                state.loading = false;
-                state.allNews.push(...payload.results);
-                state.nextPage = payload.next;
-                state.count = payload.count;
-                state.isFetching = false;
+        builder.addCase(allNews.fulfilled, (state, { payload }) => {
+            state.loading = false;
+            state.allNews.push(...payload.results);
+            state.nextPage = payload.next;
+            state.count = payload.count;
+            state.isFetching = false;
         });
         builder.addCase(allNews.rejected, (state, { payload }) => {
+            state.loading = false;
+            state.error = payload;
+            if (payload) {
+                toast.error("Fatal error");
+            }
+        });
+        builder.addCase(allReports.pending, (state) => {
+            state.loading = true;
+            state.error = null;
+        });
+        builder.addCase(allReports.fulfilled, (state, { payload }) => {
+            state.loading = false;
+            state.allReports.push(...payload.results);
+        });
+        builder.addCase(allReports.rejected, (state, { payload }) => {
             state.loading = false;
             state.error = payload;
             if (payload) {

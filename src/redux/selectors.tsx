@@ -2,6 +2,7 @@ import  {IArticle, IState} from "../interfaces/interfaces";
 
 const getAllNews = (state: IState) => state.allNews;
 const getCount = (state: IState) => state.count;
+const getAllReports = (state: IState) => state.allReports;
 const getNextPage = (state: IState) => state.nextPage;
 const getFilter = (state: IState) => state.filterWords;
 const getDetails = (state: IState) => state.newsDetails;
@@ -21,7 +22,8 @@ const allSelectors = {
     getLoading,
     getModal,
     getIsFetching,
-    getIsMenuClicked
+    getIsMenuClicked,
+    getAllReports
 }
 
 export default allSelectors;

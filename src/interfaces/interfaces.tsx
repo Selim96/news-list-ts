@@ -67,6 +67,7 @@ export interface IBlog {
 export interface IState {
     allNews: IArticle[];
     blogs: IBlog[];
+    allReports: IReport[];
     nextPage: string | null;
     count: number;
     filterWords: string;

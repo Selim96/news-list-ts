@@ -16,10 +16,9 @@ interface IReportResults extends  Omit<IResults, 'results'> {
 const str ='https://api.spaceflightnewsapi.net/v4/articles/?limit=10&offset=0&summary_contains_one=%2C+&title_contains_one=nasa%2C%20space'
 
 export class NewsAPI {
-    private baseURL = 'https://api.spaceflightnewsapi.net/v4';
+    protected baseURL = 'https://api.spaceflightnewsapi.net/v4';
     private newsEndPoint = '/articles';
     private blogsEndPoint = '/blogs';
-    private reportsEndPoint = '/reports'
     private limit = 10;
     private page = 0;
     private wordInSummery = "";
@@ -53,19 +52,6 @@ export class NewsAPI {
         async (_, { rejectWithValue }) => {
             const response = await fetch(`${this.baseURL}${this.newsEndPoint}/${this.articleId}`);
 
-            if (!response.ok) {
-                return rejectWithValue('Server Error!');
-            }
-            const news =await response.json();
-            return news;
-        }
-    );
-
-    private allReports = createAsyncThunk<IReportResults, undefined, {rejectValue: any}>(
-        "allNews",
-        async (_, { rejectWithValue }) => {
-            const response = await fetch(`${this.baseURL}${this.reportsEndPoint}/?limit=${this.limit}&offset=${this.limit * this.page}&summary_contains_one=${this.wordInSummery}&title_contains_one=${this.wordInTitle}`);
-            
             if (!response.ok) {
                 return rejectWithValue('Server Error!');
             }
