@@ -18,7 +18,7 @@ export class ReportsAPI extends NewsAPI {
     private inTitle = "";
 
     private allReports = createAsyncThunk<IReportResults, undefined, {rejectValue: any}>(
-            "allNews",
+            "allReports",
             async (_, { rejectWithValue }) => {
                 const response = await fetch(`${this.baseURL}${this.reportsEndPoint}/?limit=${this.limitReports}&offset=${this.limitReports * this.pageReports}&search=${this.inSummeryOrTitle}&title_contains_one=${this.inTitle}`);
                 

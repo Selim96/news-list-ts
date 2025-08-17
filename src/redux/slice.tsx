@@ -83,6 +83,7 @@ const newsSlice = createSlice({
                 toast.error("Fatal error");
             }
         });
+
         // builder.addCase(onLoadMore.pending, (state) => {
             
         //     state.error = null;
