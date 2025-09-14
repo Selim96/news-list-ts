@@ -57,6 +57,7 @@ const NewsGallery: React.FC = () => {
         }
     }, [allNews, count, dispatch]);
 
+// 1 эффект вешает слушатель для отслеживания скрола, а после анмаунта компонента снимает слушателя
     useEffect(() => {
         document.addEventListener('scroll', onScrollHandler);
         return () => {
@@ -64,6 +65,7 @@ const NewsGallery: React.FC = () => {
         };
     }, [onScrollHandler]);
 
+// 2 эффект срабатывает при изменении isFetching (при скролле в самый низ страницы) и при изменении фильтра   
     useEffect(() => {
         if (isFetching) {
             if (notInitialRender.current) {
@@ -79,6 +81,7 @@ const NewsGallery: React.FC = () => {
         }
     }, [isFetching, dispatch]);
 
+// 3 эффект срабатывает при изменении фильтра
     useEffect(() => {
         if (filterValue) {
             newsAPI.setWordsToFilter(filterValue);
@@ -97,7 +100,7 @@ const NewsGallery: React.FC = () => {
         return () => { newsAPI.setWordsToFilter("") }
     }, [filterValue, dispatch]);
 
-    const isLoading = false;
+    const isLoading = false; 
 
     return (<>
         {isLoading ? <Loader /> : <> 
