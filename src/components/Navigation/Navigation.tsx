@@ -19,7 +19,7 @@ const Navigation: React.FC = () => {
     return <nav className={s.navigation}>
         <NavLink to='/' className={setActiveLink} onClick={clickToCloseMenu}>Home</NavLink>
         <NavLink to='/reports' className={setActiveLink} onClick={clickToCloseMenu}>Reports</NavLink>
-        <NavLink to='/blog' className={setActiveLink} onClick={clickToCloseMenu}>Blog</NavLink>
+        {/* <NavLink to='/blog' className={setActiveLink} onClick={clickToCloseMenu}>Blog</NavLink> */}
     </nav>
 };
 
